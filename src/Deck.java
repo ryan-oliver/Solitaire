@@ -7,13 +7,16 @@ import java.util.Collections;
 
 public class Deck {
 
-    private ArrayList<Card> deck; // Deck without kings (48 cards)
-    private ArrayList<Card> kings; // Kings (4 cards)
+    private static ArrayList<Card> masterDeck;
+    private static ArrayList<Card> deck; // Deck without kings (48 cards)
+    private static ArrayList<Card> kings; // Kings (4 cards)
 
     Deck() {
-        deck = getCards(); // Add all cards to deck
+        masterDeck = getCards(); // Add all cards to deck
+        deck = new ArrayList<>();
+        deck = masterDeck;
         kings = new ArrayList<>(); // List for kings
-        for(int i = 12; i <= 51; i += 13)
+        for (int i = 12; i <= 51; i += 13)
             kings.add(deck.get(i));
         deck.remove(51);
         deck.remove(38);    // Add kings to list and remove from deck
@@ -26,22 +29,37 @@ public class Deck {
         return card.getNumber();
     }
 
-    /** Return ArrayList of cards **/
-    ArrayList<Card> getDeck() {
-        return this.deck;
+    /**
+     * Return ArrayList of cards
+     **/
+    static ArrayList<Card> getDeck() {
+        return deck;
     }
 
-    /** Return ArrayList of kings **/
-    ArrayList<Card> getKings() {
-        return this.kings;
+    /**
+     * Return ArrayList of kings
+     **/
+    static ArrayList<Card> getKings() {
+        return kings;
     }
 
-    /** Return an image of the card **/
+    /**
+     * Return ArrayList of masterDeck
+     **/
+    static ArrayList<Card> getMaster() {
+        return masterDeck;
+    }
+
+    /**
+     * Return an image of the card
+     **/
     Rectangle sendImage(Card card) {
         return card.getCardImage();
     }
 
-    /** Create a deck of Cards **/
+    /**
+     * Create a deck of Cards
+     **/
     private ArrayList<Card> getCards() {
         ArrayList<Card> deck = new ArrayList<>();
         int number = 1;

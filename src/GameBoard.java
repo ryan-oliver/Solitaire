@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -9,19 +10,40 @@ import javafx.stage.Stage;
 public class GameBoard extends Application {
 
     private static boolean gameStarted = false; // Boolean to know if game has started
+    static Pane pane;
+    static Tableau tableau;
 
     public void start(Stage primaryStage) {
 
         // Create main pane
-        Pane pane = new Pane();
+        pane = new Pane();
         pane.setStyle("-fx-background-color: #008000");
 
         // Add foundations and tableau to pane
         FoundationPile.getFoundations(pane);
 
-        Tableau tableau = new Tableau();
+        tableau = new Tableau();
         tableau.getTableau(pane);
 
+        getButtons(pane, tableau);
+
+        // Set scene and show stage
+        Scene scene = new Scene(pane, 1200, 800);
+        primaryStage.setResizable(false);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Bakers Dozen");
+        primaryStage.show();
+    }
+
+    static void setGameStarted(boolean status) {
+        gameStarted = status;
+    }
+
+    static void getButtons(Pane pane) {
+        getButtons(pane, tableau);
+    }
+
+    static void getButtons(Pane pane, Tableau tableau) {
         // Start button
         Button start = new Button("Start");
         start.setLayoutX(100);
@@ -57,19 +79,9 @@ public class GameBoard extends Application {
         restart.setOnAction((e) -> {
             if (gameStarted) { // prevents restart button use if game has not started
                 tableau.restart(pane);
+                getButtons(pane, tableau);
             }
         });
-
-        // Set scene and show stage
-        Scene scene = new Scene(pane, 1200, 800);
-        primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Bakers Dozen");
-        primaryStage.show();
-    }
-
-    static void setGameStarted(boolean status) {
-        gameStarted = status;
     }
 
 }

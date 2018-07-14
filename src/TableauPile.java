@@ -12,11 +12,14 @@ public class TableauPile {
     private double yCord; // y location of pile
     private Rectangle stackField; // rectangle to hold area of stack on grid
     private ArrayList<Card> cardsInPile; // array of cards currently in the pile
+    private int num;
 
 
     TableauPile(double xCord, double yCord, int num) {
         this.xCord = xCord;
         this.yCord = yCord;
+        this.num = num;
+
         stackField = new Rectangle(105, 155);
         stackField.setX(xCord);
         stackField.setY(yCord);
@@ -31,12 +34,24 @@ public class TableauPile {
         return this.stackField;
     }
 
+    Rectangle getCardImage(Card card) {
+        return card.getCardImage();
+    }
+
+    Card getCard(int index) {
+        return cardsInPile.get(index);
+    }
+
     public double getXCord() {
         return xCord;
     }
 
     public double getYCord() {
         return yCord;
+    }
+
+    int getNum() {
+        return num;
     }
 
     /** Get amount of cards in pile**/

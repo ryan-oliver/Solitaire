@@ -1,4 +1,5 @@
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,14 +8,18 @@ import java.util.Collections;
 
 public class Tableau {
 
-    private ArrayList<TableauPile> tableauPiles; // Array of the four tableau piles
+    private static ArrayList<TableauPile> tableauPiles; // Array of the four tableau piles
 
     Tableau() {
         tableauPiles = new ArrayList<>();
     }
 
+    static ArrayList<TableauPile> getTableauPiles() {
+        return tableauPiles;
+    }
+
     /** Add tableau piles to the pane **/
-    public Pane getTableau(Pane pane) {
+    static Pane getTableau(Pane pane) {
         int c = 1; // number identifier for each pile
 
         // first row
@@ -32,7 +37,7 @@ public class Tableau {
     }
 
     /** Create and deal deck of cards **/
-    public void deal(Pane pane) {
+    void deal(Pane pane) {
         // Set gameStarted to true
         GameBoard.setGameStarted(true);
 
@@ -65,18 +70,51 @@ public class Tableau {
             }
         }
     }
+
+    static void print(Pane pane) {
+        for(int i = 0; i < 13; i++) {
+            for(int c = 0; i < tableauPiles.get(i).getPileSize(); c++) {
+                pane.getChildren().add(tableauPiles.get(i).getCardImage(tableauPiles.get(i).getCard(c)));
+            }
+        }
+    }
+
     /** Restart the game with a new deck **/
     public void restart(Pane pane) {
         // Set gameStarted to true
         GameBoard.setGameStarted(true);
 
-        // Clear tableau
+        pane.getChildren().clear();
+        getTableau(pane);
+        FoundationPile.getFoundations(pane);
+
+        // Clear tableau, foundations, and deck arrays
         for(int i = 0; i < 13; i++) {
             tableauPiles.get(i).clearPile();
         }
-
+        Deck.getDeck().clear();
+        Deck.getKings().clear();
         // Deal new deck
         deal(pane);
+    }
 
+    public static boolean isTableau(double xCord, double yCord) {
+        for (TableauPile tableau: tableauPiles) {
+            if (tableau.getRectangle().contains(xCord, yCord))
+                return true;
+        }
+        return false;
+    }
+
+    public static TableauPile getTableau(double xCord, double yCord) {
+        for (TableauPile tableau: tableauPiles) {
+            if (tableau.getRectangle().contains(xCord, yCord))
+                return tableau;
+        }
+        return null;
+    }
+
+    static void addCard(int number, TableauPile pile) {
+        tableauPiles.get(pile.getNum()).addCard(Deck.getMaster().get(number));
     }
 }

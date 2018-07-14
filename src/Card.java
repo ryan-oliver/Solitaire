@@ -2,6 +2,8 @@ import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.input.MouseEvent;
+import javafx.event.EventHandler;
 
 // Represents card object
 
@@ -24,23 +26,9 @@ public class Card {
         card.setX(xCord);
 
         card.setCursor(Cursor.HAND);
-        card.setOnMousePressed((e) -> {
-            card.toFront();
-            orgSceneX = e.getSceneX();
-            orgSceneY = e.getSceneY();
-            orgTranslateX = ((Rectangle)(e.getSource())).getTranslateX();
-            orgTranslateY = ((Rectangle)(e.getSource())).getTranslateY();
-        });
-        card.setOnMouseDragged((e) -> {
-            card.toFront();
-            double offsetX = e.getSceneX() - orgSceneX;
-            double offsetY = e.getSceneY() - orgSceneY;
-            double newTranslateX = orgTranslateX + offsetX;
-            double newTranslateY = orgTranslateY + offsetY;
-
-            ((Rectangle)(e.getSource())).setTranslateX(newTranslateX);
-            ((Rectangle)(e.getSource())).setTranslateY(newTranslateY);
-        });
+        card.setOnMousePressed(circleOnMousePressedEventHandler);
+        card.setOnMouseDragged(circleOnMouseDraggedEventHandler);
+        // card.setOnMouseReleased(circleOnMouseReleasedEventHandler);
     }
 
     int getNumber() {
@@ -73,5 +61,50 @@ public class Card {
         card.setY(yCord);
         return this.card;
     }
+
+    EventHandler<MouseEvent> circleOnMousePressedEventHandler =
+            new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent e) {
+                    card.toFront();
+                    orgSceneX = e.getSceneX();
+                    orgSceneY = e.getSceneY();
+                    orgTranslateX = ((Rectangle)(e.getSource())).getTranslateX();
+                    orgTranslateY = ((Rectangle)(e.getSource())).getTranslateY();
+                }
+            };
+
+    EventHandler<MouseEvent> circleOnMouseDraggedEventHandler =
+            new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent e) {
+                    card.toFront();
+                    double offsetX = e.getSceneX() - orgSceneX;
+                    double offsetY = e.getSceneY() - orgSceneY;
+                    double newTranslateX = orgTranslateX + offsetX;
+                    double newTranslateY = orgTranslateY + offsetY;
+
+                    ((Rectangle)(e.getSource())).setTranslateX(newTranslateX);
+                    ((Rectangle)(e.getSource())).setTranslateY(newTranslateY);
+                }
+            };
+
+    EventHandler<MouseEvent> circleOnMouseReleasedEventHandler =
+            new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent e) {
+                    if (Tableau.isTableau(e.getSceneX(), e.getSceneY())) {
+                        Tableau.addCard(number, Tableau.getTableau(e.getSceneX(), e.getSceneY()));
+                        GameBoard.pane.getChildren().clear();
+                        Tableau.getTableau(GameBoard.pane);
+                        FoundationPile.getFoundations(GameBoard.pane);
+                        GameBoard.getButtons(GameBoard.pane);
+                        Tableau.print(GameBoard.pane);
+                    }
+                }
+            };
 
 }
