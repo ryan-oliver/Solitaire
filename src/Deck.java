@@ -5,16 +5,16 @@ import java.util.Collections;
 
 public class Deck {
 
-    private ArrayList<Card> deck;
-    private ArrayList<Card> kings;
+    private ArrayList<Card> deck; // Deck without kings (48 cards)
+    private ArrayList<Card> kings; // Kings (4 cards)
 
     Deck() {
-        deck = getCards();
-        kings = new ArrayList<>();
+        deck = getCards(); // Add all cards to deck
+        kings = new ArrayList<>(); // List for kings
         for(int i = 12; i <= 51; i += 13)
             kings.add(deck.get(i));
         deck.remove(51);
-        deck.remove(38);
+        deck.remove(38);    // Add kings to list and remove from deck
         deck.remove(25);
         deck.remove(12);
         Collections.shuffle(deck);
@@ -24,19 +24,23 @@ public class Deck {
         return card.getNumber();
     }
 
-    public ArrayList<Card> getDeck() {
+    /** Return ArrayList of cards **/
+    ArrayList<Card> getDeck() {
         return this.deck;
     }
 
-    public ArrayList<Card> getKings() {
+    /** Return ArrayList of kings **/
+    ArrayList<Card> getKings() {
         return this.kings;
     }
 
-    public Rectangle sendImage(Card card) {
+    /** Return an image of the card **/
+    Rectangle sendImage(Card card) {
         return card.getCardImage();
     }
 
-    public ArrayList<Card> getCards() {
+    /** Create a deck of Cards **/
+    private ArrayList<Card> getCards() {
         ArrayList<Card> deck = new ArrayList<>();
         int number = 1;
         for (int suit = 1; suit <= 4; suit++) {

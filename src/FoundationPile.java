@@ -6,30 +6,32 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
-public class FoundationPile {
+class FoundationPile {
 
-    private double xCord;
-    private double yCord;
-    private Rectangle stackField;
-    private int num;
+    private double xCord; // x location on grid
+    private double yCord; // y location on grid
+    private Rectangle stackLocation; // rectangle to hold area of this stack on grid
+    private int num; // Number to represent card suit
 
+    /** Creates a location for a foundation pile**/
     FoundationPile(double xCord, double yCord, int num) {
-        stackField = new Rectangle(105, 155);
-        stackField.setX(xCord);
-        stackField.setY(yCord);
+        stackLocation = new Rectangle(105, 155);
+        stackLocation.setX(xCord);
+        stackLocation.setY(yCord);
         this.xCord = xCord;
         this.yCord = yCord;
         this.num = num;
-        stackField.setFill(new ImagePattern(new Image("file:images/suit_image/" + num + "s.png")));
-        stackField.setStroke(Color.DARKGREEN);
-        stackField.setStrokeWidth(5);
+        stackLocation.setFill(new ImagePattern(new Image("file:images/suit_image/" + num + "s.png"))); // Adds image representing suit
+        stackLocation.setStroke(Color.DARKGREEN); // Makes a border for the pile
+        stackLocation.setStrokeWidth(5);
     }
 
-    public Rectangle getRec() {
-        return this.stackField;
+    private Rectangle getRec() {
+        return this.stackLocation;
     }
 
-    public static Pane getFoundations(Pane pane) {
+    /** Adds foundations to the pane**/
+    static Pane getFoundations(Pane pane) {
         ArrayList<FoundationPile> foundation = new ArrayList<>();
         for(int i = 0, n = 220, c = 1; i < 4; i++, c++) {
             foundation.add(new FoundationPile(n += 130, 25, c));
