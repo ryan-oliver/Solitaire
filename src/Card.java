@@ -53,5 +53,4 @@ public class Card {
         return this.card;
     }
 
-
 }

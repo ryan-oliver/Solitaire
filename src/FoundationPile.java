@@ -40,5 +40,6 @@ class FoundationPile {
             pane.getChildren().add(foundation.get(i).getRec());
         }
         return pane;
+
     }
 }

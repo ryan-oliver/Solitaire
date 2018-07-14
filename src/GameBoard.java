@@ -71,4 +71,5 @@ public class GameBoard extends Application {
     static void setGameStarted(boolean status) {
         gameStarted = status;
     }
+
 }

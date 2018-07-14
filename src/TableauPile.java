@@ -66,4 +66,5 @@ public class TableauPile {
     public void clearPile() {
         cardsInPile.clear();
     }
+
 }

@@ -77,5 +77,6 @@ public class Tableau {
 
         // Deal new deck
         deal(pane);
+
     }
 }
