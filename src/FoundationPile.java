@@ -6,6 +6,8 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
+// Represents individual foundation piles
+
 class FoundationPile {
 
     private double xCord; // x location on grid

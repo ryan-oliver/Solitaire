@@ -2,13 +2,15 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
+// Represents card object
+
 public class Card {
 
-    private int number;
-    private int suit; /** Clubs = 1, Diamonds = 2, Hearts = 3, Spades = 4 **/
-    private Rectangle card;
-    private double xCord;
-    private double yCord;
+    private int number; // number in order from 1 to 52. Used to pull image to card
+    private int suit; // Clubs = 1, Diamonds = 2, Hearts = 3, Spades = 4
+    private Rectangle card; // Physical representation of card
+    private double xCord; // x location of card
+    private double yCord; // y location of card
 
     Card(int number, int suit) {
         this.number = number;
@@ -19,7 +21,8 @@ public class Card {
         card.setX(xCord);
     }
 
-    public int getNumber() {
+
+    int getNumber() {
         return this.number;
     }
 
@@ -27,7 +30,7 @@ public class Card {
         return this.suit;
     }
 
-    public void setXCord(double xCord) {
+    void setXCord(double xCord) {
         this.xCord = xCord;
     }
 
@@ -35,7 +38,7 @@ public class Card {
         return this.xCord;
     }
 
-    public void setYCord(double yCord) {
+    void setYCord(double yCord) {
         this.yCord = yCord;
     }
 
@@ -43,7 +46,8 @@ public class Card {
         return this.yCord;
     }
 
-    public Rectangle getCardImage() {
+    Rectangle getCardImage() {
+        // Set physical coordinates of card each time image is requested
         card.setX(xCord);
         card.setY(yCord);
         return this.card;

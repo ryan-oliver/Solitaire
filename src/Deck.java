@@ -3,6 +3,8 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 
+// Represents each deck of cards.
+
 public class Deck {
 
     private ArrayList<Card> deck; // Deck without kings (48 cards)
