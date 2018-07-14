@@ -1,3 +1,4 @@
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -11,6 +12,8 @@ public class Card {
     private Rectangle card; // Physical representation of card
     private double xCord; // x location of card
     private double yCord; // y location of card
+    private double orgSceneX, orgSceneY;
+    private double orgTranslateX, orgTranslateY;
 
     Card(int number, int suit) {
         this.number = number;
@@ -19,8 +22,26 @@ public class Card {
         card.setFill(new ImagePattern(new Image("file:images/card_images/" + number + ".png")));
         card.setY(yCord);
         card.setX(xCord);
-    }
 
+        card.setCursor(Cursor.HAND);
+        card.setOnMousePressed((e) -> {
+            card.toFront();
+            orgSceneX = e.getSceneX();
+            orgSceneY = e.getSceneY();
+            orgTranslateX = ((Rectangle)(e.getSource())).getTranslateX();
+            orgTranslateY = ((Rectangle)(e.getSource())).getTranslateY();
+        });
+        card.setOnMouseDragged((e) -> {
+            card.toFront();
+            double offsetX = e.getSceneX() - orgSceneX;
+            double offsetY = e.getSceneY() - orgSceneY;
+            double newTranslateX = orgTranslateX + offsetX;
+            double newTranslateY = orgTranslateY + offsetY;
+
+            ((Rectangle)(e.getSource())).setTranslateX(newTranslateX);
+            ((Rectangle)(e.getSource())).setTranslateY(newTranslateY);
+        });
+    }
 
     int getNumber() {
         return this.number;
