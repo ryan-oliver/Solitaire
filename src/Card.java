@@ -98,11 +98,10 @@ public class Card {
                 public void handle(MouseEvent e) {
                     if (Tableau.isTableau(e.getSceneX(), e.getSceneY())) {
                         Tableau.addCard(number, Tableau.getTableau(e.getSceneX(), e.getSceneY()));
-                        GameBoard.pane.getChildren().clear();
-                        Tableau.getTableau(GameBoard.pane);
-                        FoundationPile.getFoundations(GameBoard.pane);
-                        GameBoard.getButtons(GameBoard.pane);
-                        Tableau.print(GameBoard.pane);
+                        GamePane.gameBoard.getChildren().clear();
+                        GamePane.getTableau();
+                        FoundationPile.getFoundations(GamePane.gameBoard);
+                        GamePane.getButtons();
                     }
                 }
             };

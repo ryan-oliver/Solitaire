@@ -4,7 +4,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.geometry.Insets;
 
-public class CardTest extends Application {
+/** public class CardTest extends Application {
 
     public void start(Stage primaryStage) {
 
@@ -34,4 +34,4 @@ public class CardTest extends Application {
         primaryStage.setTitle("Test Deck");
         primaryStage.show();
     }
-}
+} **/

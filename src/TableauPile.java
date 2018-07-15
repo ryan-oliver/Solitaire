@@ -1,8 +1,6 @@
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
-import java.util.Collections;
 
 // Represents each individual pile in tableau
 
@@ -19,7 +17,7 @@ public class TableauPile {
         this.xCord = xCord;
         this.yCord = yCord;
         this.num = num;
-
+        // Physical aspect of pile
         stackField = new Rectangle(105, 155);
         stackField.setX(xCord);
         stackField.setY(yCord);
@@ -72,6 +70,7 @@ public class TableauPile {
             card.setYCord(yCord + (25 * (cardsInPile.size() - 1)));
         }
     }
+
     /** Remove card from pile **/
     public void removeCard(Card card) {
         cardsInPile.remove(card);
