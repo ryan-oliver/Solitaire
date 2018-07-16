@@ -17,20 +17,12 @@ public class Tableau {
     }
 
     public static TableauPile getTableau(double xCord, double yCord) {
+        // Change this method to get tableau number from card coordinates.
+        // Card can then be dropped on stack instead of tableau
         for(int i = 0; i < 13; i++) {
             if (tableauPiles.get(i).getRectangle().contains(xCord, yCord))
                 return tableauPiles.get(i);
         }
         return null;
-    }
-
-    static void addCard(int number, TableauPile pile) {
-        tableauPiles.get(pile.getNum() - 1).addCard(Deck.masterDeck.get(number));
-        Deck.masterDeck.get(number).setTableauPileNum(pile.getNum());
-        Deck.masterDeck.get(number).setInTableau(true);
-    }
-
-    static void removeCard(int number, TableauPile pile) {
-        tableauPiles.get(pile.getNum()).removeCard(Deck.masterDeck.get(number));
     }
 }

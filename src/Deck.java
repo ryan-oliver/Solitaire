@@ -1,4 +1,3 @@
-import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 
 // Represents each deck of cards.
@@ -10,15 +9,8 @@ public class Deck {
     Deck() {
     }
 
-    public static int getCardNumber(Card card) {
+    public static String getCardNumber(Card card) {
         return card.getNumber();
-    }
-
-    /**
-     * Return an image of the card
-     **/
-    Rectangle sendImage(Card card) {
-        return card.getCardImage();
     }
 
     /**
@@ -30,9 +22,8 @@ public class Deck {
         int number = 1;
         for (int suit = 1; suit <= 4; suit++) {
             for (int n = 1; n <= 13; n++) {
-                Card card = new Card(number, suit);
-                MouseEvents me = new MouseEvents();
-                me.makeDraggable(card);
+                Card card = new Card(String.valueOf(number), suit);
+                MouseEvents.makeDraggable(card);
                 masterDeck.add(card);
                 number++;
             }

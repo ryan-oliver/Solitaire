@@ -2,36 +2,41 @@ import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.input.MouseEvent;
-import javafx.event.EventHandler;
 
 // Represents card object
 
 public class Card extends Rectangle {
 
-    private int number; // number in order from 1 to 52. Used to pull image to card
+    private String number; // number in order from 1 to 52. Used to pull image to card
     private int suit; // Clubs = 1, Diamonds = 2, Hearts = 3, Spades = 4
+    private boolean isCard; // Boolean status for mouseEvent
     private double xCord; // x location of card
     private double yCord; // y location of card
+    private Image cardImage;
     private boolean inTableau;
     private int tableauPileNum;
     private boolean inFoundations;
     private int foundationsPileNum;
-    private double translateX, translateY;
 
-    Card(int number, int suit) {
+    Card(String number, int suit) {
         this.number = number;
         this.suit = suit;
+        isCard = true;
         setHeight(150);
         setWidth(100);
         setFill(new ImagePattern(new Image("file:images/card_images/" + number + ".png")));
+        cardImage = new Image("file:images/card_images/" + number + ".png", 100, 150, true, true);
         setY(yCord);
         setX(xCord);
 
         setCursor(Cursor.HAND);
     }
 
-    int getNumber() {
+    Image getImage() {
+        return cardImage;
+    }
+
+    String getNumber() {
         return this.number;
     }
 
@@ -40,7 +45,6 @@ public class Card extends Rectangle {
     }
 
     void setXCord(double xCord) {
-        setX(xCord);
         this.xCord = xCord;
     }
 
@@ -49,7 +53,6 @@ public class Card extends Rectangle {
     }
 
     void setYCord(double yCord) {
-        setY(yCord);
         this.yCord = yCord;
     }
 
@@ -57,7 +60,7 @@ public class Card extends Rectangle {
         return this.yCord;
     }
     
-    public void setInTableau(boolean inTableau) {
+    void setInTableau(boolean inTableau) {
         this.inTableau = inTableau;
     }
 
@@ -73,11 +76,11 @@ public class Card extends Rectangle {
         return inFoundations;
     }
 
-    public void setTableauPileNum(int tableauPileNum) {
+    void setTableauPileNum(int tableauPileNum) {
         this.tableauPileNum = tableauPileNum;
     }
 
-    public int getTableauPileNum() {
+    int getTableauPileNum() {
         return tableauPileNum;
     }
 
@@ -90,18 +93,10 @@ public class Card extends Rectangle {
     }
 
     Rectangle getCardImage() {
-        // Set physical coordinates of card each time image is requested
-        setX(xCord);
-        setY(yCord);
         return this;
     }
 
-    static boolean isCard(double xCord, double yCord) {
-        for(int i = 0; i < 52; i++) {
-            if (Deck.masterDeck.get(i).contains(xCord, yCord)) {
-                return true;
-            }
-        }
-        return false;
+    static boolean isCard(Card card) {
+        return card.isCard;
     }
 }
