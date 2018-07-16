@@ -48,7 +48,12 @@ public class MouseEvents {
             };
 
     private void fixPosition(Card card) {
-        // Get card, save old tab pile, get new tab pile, get x y top card new pile, set new card x y, add/remove card
+        // Get card, save old tab pile, get new tab pile, get x y top card new pile,
+        // set new card x y, add/remove card
+        // need to select top card
+        // add selected card to pile if possible
+        // remove from old pile
+        // on mouse release set new card location, not set old top card location
         int pileNum = card.getTableauPileNum();
         Tableau.tableauPiles.get(pileNum).addCard(card);
     }
