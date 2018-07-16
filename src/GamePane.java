@@ -84,6 +84,7 @@ public class GamePane extends Pane {
                     }
                     cardCount++;
                 }
+                Tableau.tableauPiles.get(t).getTopCard().setIsTopCard(true);
         }
 
     }

@@ -22,6 +22,7 @@ public class Card extends Rectangle {
     private int tableauPileNum;
     private boolean inFoundations;
     private int foundationsPileNum;
+    private boolean isTopCard;
 
     Card(String number, int suit) {
         this.number = number;
@@ -40,8 +41,106 @@ public class Card extends Rectangle {
         return cardImage;
     }
 
+    // Return number in deck
     String getNumber() {
         return this.number;
+    }
+
+    void setIsTopCard(boolean isTop) {
+        isTopCard = isTop;
+    }
+
+    boolean isTopCard() {
+        return isTopCard;
+    }
+
+    boolean tableauMovable(int heldCardNum) {
+        if (checkClubs(heldCardNum)) {
+            return true;
+        }
+        else if (checkDiamond(heldCardNum)) {
+            return true;
+        }
+        else if (checkHearts(heldCardNum)) {
+            return true;
+        }
+        else if (checkSpades(heldCardNum)) {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private boolean checkClubs(int heldCardNum) {
+        int topCardNum = Integer.valueOf(getNumber());
+        if (topCardNum == heldCardNum + 1) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum + 14) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum + 27) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum + 40) {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private boolean checkDiamond(int heldCardNum) {
+        int topCardNum = Integer.valueOf(getNumber());
+        if (topCardNum == heldCardNum - 12) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum + 1) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum + 14) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum + 27) {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private boolean checkHearts(int heldCardNum) {
+        int topCardNum = Integer.valueOf(getNumber());
+        if (topCardNum == heldCardNum - 25) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum - 12) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum + 1) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum + 14) {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private boolean checkSpades(int heldCardNum) {
+        int topCardNum = Integer.valueOf(getNumber());
+        if (topCardNum == heldCardNum - 38) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum - 25) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum - 12) {
+            return true;
+        }
+        else if (topCardNum == heldCardNum +1) {
+            return true;
+        }
+        else
+            return false;
     }
 
     public int getSuit() {

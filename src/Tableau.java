@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Tableau {
 
     static ArrayList<TableauPile> tableauPiles; // Array of the four tableau piles
+    static TableauPile selectedPile;
 
     Tableau() {
     }
@@ -18,11 +19,10 @@ public class Tableau {
 
     public static TableauPile getTableau(double xCord, double yCord) {
         // Change this method to get tableau number from card coordinates.
-        // Card can then be dropped on stack instead of tableau
         for(int i = 0; i < 13; i++) {
-            if (tableauPiles.get(i).getRectangle().contains(xCord, yCord))
-                return tableauPiles.get(i);
+            if (tableauPiles.get(i).getTopCard().contains(xCord, yCord))
+                selectedPile = tableauPiles.get(i);
         }
-        return null;
+        return selectedPile;
     }
 }

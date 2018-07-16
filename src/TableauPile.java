@@ -33,8 +33,8 @@ public class TableauPile {
     }
 
 
-    Card getCard(int index) {
-        return cardsInPile.get(index);
+    Card getTopCard() {
+        return cardsInPile.get(cardsInPile.size() - 1);
     }
 
     public double getXCord() {

@@ -3,6 +3,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,9 @@ import java.util.ArrayList;
 public class Deck {
 
     static ArrayList<Card> masterDeck;
+    static Dragboard db;
+    static Card topCard;
+    static Card cardInHand;
 
     Deck() {
     }
@@ -42,35 +46,52 @@ public class Deck {
 
     static void makeDraggable(Card card) {
         card.setOnDragDetected(e -> {
-            Dragboard db = card.startDragAndDrop(TransferMode.MOVE);
+            cardInHand = card;
+            if (card.isTopCard()) {
+                db = card.startDragAndDrop(TransferMode.MOVE);
+                ClipboardContent content = new ClipboardContent();
+                content.putString(card.getNumber());
+                content.putImage(card.getImage());
+                db.setContent(content);
+                Tableau.tableauPiles.get(card.getTableauPileNum()).removeCard(card);
+                Tableau.tableauPiles.get(card.getTableauPileNum()).getTopCard().setIsTopCard(true);
+                System.out.println(db.getString() + " startDrag");
 
-            ClipboardContent content = new ClipboardContent();
-            content.putString(card.getNumber());
-            content.putImage(card.getImage());
-            db.setContent(content);
-            Tableau.tableauPiles.get(card.getTableauPileNum()).removeCard(card);
-            e.consume();
+                e.consume();
+            }
         });
 
         card.setOnDragOver(e -> {
-
-        });
-
-        card.setOnDragEntered(e -> {
-
-        });
-
-        card.setOnDragExited(e -> {
-
+            topCard = Tableau.getTableau(e.getSceneX(), e.getSceneY()).getTopCard();
+            if (topCard.tableauMovable(Integer.valueOf(cardInHand.getNumber()))) {
+               e.acceptTransferModes(TransferMode.MOVE);
+            }
         });
 
         card.setOnDragDropped(e -> {
-
+            boolean success = false;
+            if (topCard.tableauMovable(Integer.valueOf(cardInHand.getNumber()))) {
+                System.out.println(db.getString() + " dropped");
+                System.out.println(db.getString() + " is over " + topCard.getNumber());
+                Tableau.tableauPiles.get(topCard.getTableauPileNum()).getTopCard().setIsTopCard(false);
+                Tableau.tableauPiles.get(topCard.getTableauPileNum()).addCard(cardInHand);
+                Tableau.tableauPiles.get(topCard.getTableauPileNum()).getTopCard().setIsTopCard(true);
+                success = true;
+            }
+            e.setDropCompleted(success);
+            e.consume();
         });
 
         card.setOnDragDone(e -> {
+            if (e.getTransferMode() == TransferMode.MOVE) {
+                System.out.println(db.getString() + " goodDrag");
+            }
             if (e.getTransferMode() == null) {
+                Tableau.tableauPiles.get(card.getTableauPileNum()).getTopCard().setIsTopCard(false);
                 Tableau.tableauPiles.get(card.getTableauPileNum()).addCard(card);
+                Tableau.tableauPiles.get(card.getTableauPileNum()).getTopCard().setIsTopCard(true);
+                System.out.println(db.getString() + " noDrag");
+
             }
         });
     }
