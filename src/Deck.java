@@ -55,5 +55,23 @@ public class Deck {
         card.setOnDragOver(e -> {
 
         });
+
+        card.setOnDragEntered(e -> {
+
+        });
+
+        card.setOnDragExited(e -> {
+
+        });
+
+        card.setOnDragDropped(e -> {
+
+        });
+
+        card.setOnDragDone(e -> {
+            if (e.getTransferMode() == null) {
+                Tableau.tableauPiles.get(card.getTableauPileNum()).addCard(card);
+            }
+        });
     }
 }

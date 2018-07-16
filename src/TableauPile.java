@@ -88,6 +88,7 @@ public class TableauPile {
             card.setY(yCord + (25 * (cardsInPile.size() - 1)));
             card.setYCord(card.getY());
             card.getCardImage().toFront();
+            GamePane.gameBoard.getChildren().add(card);
         }
         else if (cardsInPile.get(cardsInPile.size() - 1).getNumber() == card.getNumber()) {
             card.setX(card.getXCord());
