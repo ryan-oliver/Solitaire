@@ -2,7 +2,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 
-public class MouseEvents {
+/** public class MouseEvents {
 
     static void makeDraggable(Card card) {
         card.setOnDragDetected(e -> {
@@ -15,6 +15,10 @@ public class MouseEvents {
             Tableau.tableauPiles.get(card.getTableauPileNum()).removeCard(card);
             e.consume();
         });
+
+        card.setOnDragOver(e -> {
+            if (e.getGestureSource())
+        });
     }
 
-}
+} **/
