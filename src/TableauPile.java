@@ -57,8 +57,8 @@ public class TableauPile {
         return cardsInPile.size();
     }
 
-    /** Add card to pile **/
-    public void addCard(Card card) {
+    /** Deal cards to  tableau **/
+    public void dealCards(Card card) {
         cardsInPile.add(card);
         // Increment location of card to make whole stack visible
         if (cardsInPile.size() == 1) {
@@ -68,6 +68,16 @@ public class TableauPile {
         else if (cardsInPile.size() > 1){
             card.setXCord(xCord + 2.5);
             card.setYCord(yCord + (25 * (cardsInPile.size() - 1)));
+        }
+    }
+
+    /** Add card to tableau pile **/
+    void addCard(Card card) {
+        if (cardsInPile.get(cardsInPile.size() - 1).getNumber() != card.getNumber()) {
+            cardsInPile.add(card);
+            card.setXCord(xCord + 2.5);
+            card.setYCord(yCord + (25 * (cardsInPile.size() - 1)));
+            card.getCardImage().toFront();
         }
     }
 

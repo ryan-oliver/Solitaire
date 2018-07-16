@@ -6,8 +6,6 @@ import java.util.ArrayList;
 public class Deck {
 
     static ArrayList<Card> masterDeck;
-    static ArrayList<Card> deck; // Deck without kings (48 cards)
-    static ArrayList<Card> kings; // Kings (4 cards)
 
     Deck() {
     }
@@ -32,19 +30,21 @@ public class Deck {
         int number = 1;
         for (int suit = 1; suit <= 4; suit++) {
             for (int n = 1; n <= 13; n++) {
-                masterDeck.add(new Card(number, suit));
+                Card card = new Card(number, suit);
+                MouseEvents me = new MouseEvents();
+                me.makeDraggable(card);
+                masterDeck.add(card);
                 number++;
             }
         }
-        // Extract kings
-        deck = new ArrayList<>();
-        deck = masterDeck;
-        kings = new ArrayList<>(); // List for kings
-        for (int i = 12; i <= 51; i += 13)
-            kings.add(deck.get(i));
-        deck.remove(51);
-        deck.remove(38);    // Add kings to list and remove from deck
-        deck.remove(25);
-        deck.remove(12);
+    }
+
+    static Card getCard(double xCord, double yCord) {
+        for(int i = 0; i < 52; i++) {
+            if (Deck.masterDeck.get(i).contains(xCord, yCord)) {
+                return Deck.masterDeck.get(i);
+            }
+        }
+        return null;
     }
 }

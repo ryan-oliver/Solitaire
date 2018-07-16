@@ -53,29 +53,39 @@ public class GamePane extends Pane {
         Deck.getCards();
 
         // Make array list for random numbers
-        ArrayList<Integer> rand = new ArrayList<>();
-        for(int i = 1; i <= 13; i++)
-            rand.add(i);
-        Collections.shuffle(rand); // Shuffle the deck
+        ArrayList<Integer> randTab = new ArrayList<>();
+        for(int i = 0; i <= 12; i++)
+            randTab.add(i);
+        Collections.shuffle(randTab); // Shuffle the deck
 
-        // Add kings to four random places
-        int tableauPileNum;
-        for(int i = 0; i < 4; i++) {
-            tableauPileNum = rand.get(i) - 1;
-            Tableau.tableauPiles.get(tableauPileNum).addCard(Deck.kings.get(i)); // Add king to array of cards in the TableauPile
-            gameBoard.getChildren().add(Deck.kings.get(i).getCardImage()); // Add king image to gameBoard. x location set on image request
-        }
-
-        // Deal remaining cards
-        Collections.shuffle(Deck.deck);
-        int cardCt = 0;
-        for(int i = 0; i < 13; i++) {
-            while(Tableau.tableauPiles.get(i).getPileSize() < 4) { // Deal only four cards
-                Tableau.tableauPiles.get(i).addCard(Deck.deck.get(cardCt)); // Add cards to array in TableauPile
-                gameBoard.getChildren().add(Deck.deck.get(cardCt).getCardImage()); // Add card image to gameBoard
-                cardCt++;
+        // Deal cards kings first
+        int cardCount = 0;
+        int tableauRandomPileNum = 0;
+        boolean kings = false;
+        while(!kings) {
+            for (int k = 12; k <= 51; k += 13) {
+                int tableauPileNumForKing = randTab.get(tableauRandomPileNum++);
+                Tableau.tableauPiles.get(tableauPileNumForKing).dealCards(Deck.masterDeck.get(k));
+                gameBoard.getChildren().add(Deck.masterDeck.get(k).getCardImage()); // Add card image to gameBoard
+                Deck.masterDeck.get(k).setInTableau(true);
             }
+            kings = true;
         }
+        ArrayList<Integer> randCard = new ArrayList<>();
+        for(int i = 0; i < 51; i++)
+            randCard.add(i);
+        Collections.shuffle(randCard);
+        for(int t = 0; t < 13; t++) {
+                while (Tableau.tableauPiles.get(t).getPileSize() < 4) {
+                    if (randCard.get(cardCount) != 12 && randCard.get(cardCount) != 25 && randCard.get(cardCount) != 38 && randCard.get(cardCount) != 51) {
+                        Tableau.tableauPiles.get(t).dealCards(Deck.masterDeck.get(randCard.get(cardCount)));
+                        gameBoard.getChildren().add(Deck.masterDeck.get(randCard.get(cardCount)).getCardImage()); // Add card image to gameBoard
+                        Deck.masterDeck.get(cardCount).setInTableau(true);
+                    }
+                    cardCount++;
+                }
+        }
+
     }
 
     /** Restart the game with a new deck **/
@@ -96,14 +106,6 @@ public class GamePane extends Pane {
         // Deal new deck
         Deck.getCards();
         deal();
-    }
-
-    static void print() {
-        for(int i = 0; i < 13; i++) {
-            for(int c = 0; i < Tableau.tableauPiles.get(i).getPileSize(); c++) {
-                gameBoard.getChildren().add(Tableau.tableauPiles.get(i).getCardImage(Tableau.tableauPiles.get(i).getCard(c)));
-            }
-        }
     }
 
     static void getButtons() {
