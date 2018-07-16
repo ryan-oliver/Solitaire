@@ -21,9 +21,18 @@ public class GamePane extends Pane {
     static void begin() {
         gameBoard = new Pane();
         gameBoard.setStyle("-fx-background-color: #008000");
-        FoundationPile.getFoundations(GamePane.gameBoard);
+        getFoundations();
         getTableau();
         getButtons();
+    }
+
+    /** Adds foundations to the pane **/
+    static void getFoundations() {
+        ArrayList<FoundationPile> foundation = new ArrayList<>();
+        for(int i = 0, n = 220, c = 1; i < 4; i++, c++) {
+            foundation.add(new FoundationPile(n += 130, 25, c));
+            gameBoard.getChildren().add(foundation.get(i).getRectangle());
+        }
     }
 
     /** Add tableau piles to the gameBoard **/
@@ -95,14 +104,15 @@ public class GamePane extends Pane {
         setGameStarted(true);
 
         gameBoard.getChildren().clear();
+        getFoundations();
         getTableau();
         getButtons();
-        FoundationPile.getFoundations(gameBoard);
 
         // Clear tableau, foundations, and deck arrays
-        for(int i = 0; i < 13; i++) {
+        for(int i = 0; i < 13; i++)
             Tableau.tableauPiles.get(i).clearPile();
-        }
+        for(int i = 0; i < 4; i++)
+            Foundation.foundationPiles.get(i).clearPile();
         Deck.masterDeck.clear();
         // Deal new deck
         Deck.getCards();
@@ -112,7 +122,7 @@ public class GamePane extends Pane {
     static void getButtons() {
         // Start button
         Button start = new Button("Start");
-        start.setLayoutX(100);
+        start.setLayoutX(50);
         start.setLayoutY(30);
         start.setStyle("-fx-border-color: #006400; -fx-border-width: 4px;");
         gameBoard.getChildren().add(start);
@@ -124,21 +134,21 @@ public class GamePane extends Pane {
 
         // Undo button
         Button undo = new Button("Undo");
-        undo.setLayoutX(100); // X and Y locations of button
+        undo.setLayoutX(50); // X and Y locations of button
         undo.setLayoutY(70);
         undo.setStyle("-fx-border-color: #006400; -fx-border-width: 4px;");
         gameBoard.getChildren().add(undo);
 
         // Redo button
         Button redo = new Button("Redo");
-        redo.setLayoutX(100);
+        redo.setLayoutX(50);
         redo.setLayoutY(110);
         redo.setStyle("-fx-border-color: #006400; -fx-border-width: 4px;");
         gameBoard.getChildren().add(redo);
 
         // Restart button
         Button restart = new Button("Restart");
-        restart.setLayoutX(100);
+        restart.setLayoutX(50);
         restart.setLayoutY(150);
         restart.setStyle("-fx-border-color: #006400; -fx-border-width: 4px;");
         gameBoard.getChildren().add(restart);

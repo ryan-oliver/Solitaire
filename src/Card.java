@@ -1,10 +1,5 @@
-import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
@@ -197,17 +192,5 @@ public class Card extends Rectangle {
 
     Rectangle getCardImage() {
         return this;
-    }
-
-    static boolean isCard(Card card) {
-        return card.isCard;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        return false;
     }
 }

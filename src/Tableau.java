@@ -4,21 +4,13 @@ import java.util.ArrayList;
 
 public class Tableau {
 
-    static ArrayList<TableauPile> tableauPiles; // Array of the four tableau piles
+    static ArrayList<TableauPile> tableauPiles; // Array of the 13 tableau piles
     static TableauPile selectedPile;
 
     Tableau() {
     }
 
-    public static boolean isTableau(double xCord, double yCord) {
-        for (TableauPile tableau: tableauPiles)
-            if (tableau.getRectangle().contains(xCord, yCord))
-                return true;
-        return false;
-    }
-
-    public static TableauPile getTableau(double xCord, double yCord) {
-        // Change this method to get tableau number from card coordinates.
+    static TableauPile getTableau(double xCord, double yCord) {
         for(int i = 0; i < 13; i++) {
             if (tableauPiles.get(i).getTopCard().contains(xCord, yCord))
                 selectedPile = tableauPiles.get(i);

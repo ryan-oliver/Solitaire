@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 // Represents each individual pile in tableau
 
-public class TableauPile {
+public class TableauPile extends Rectangle {
 
     private double xCord; // x location of pile
     private double yCord; // y location of pile
-    private Rectangle stackField; // rectangle to hold area of stack on grid
     private ArrayList<Card> cardsInPile; // array of cards currently in the pile
     private int num;
 
@@ -18,18 +17,19 @@ public class TableauPile {
         this.yCord = yCord;
         this.num = num;
         // Physical aspect of pile
-        stackField = new Rectangle(105, 155);
-        stackField.setX(xCord);
-        stackField.setY(yCord);
-        stackField.setFill(Color.GREEN);
-        stackField.setStroke(Color.DARKGREEN);
-        stackField.setStrokeWidth(5);
-        cardsInPile = new ArrayList<>();
+        setWidth(105);
+        setHeight(155);
+        setX(xCord);
+        setY(yCord);
+        setFill(Color.GREEN);
+        setStroke(Color.DARKGREEN);
+        setStrokeWidth(5);
+        cardsInPile = new ArrayList<>(); // Holds cards in this pile
     }
 
     /** Return physical rectangle of pile**/
     Rectangle getRectangle() {
-        return this.stackField;
+        return this;
     }
 
 

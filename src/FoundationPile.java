@@ -8,38 +8,52 @@ import java.util.ArrayList;
 
 // Represents individual foundation piles
 
-class FoundationPile {
+class FoundationPile extends Rectangle{
 
     private double xCord; // x location on grid
     private double yCord; // y location on grid
-    private Rectangle stackLocation; // rectangle to hold area of this stack on grid
     private int num; // Number to represent card suit
+    private ArrayList<Card> cardsInPile;
 
     /** Creates a location for a foundation pile**/
     FoundationPile(double xCord, double yCord, int num) {
-        stackLocation = new Rectangle(105, 155);
-        stackLocation.setX(xCord);
-        stackLocation.setY(yCord);
+        setWidth(105);
+        setHeight(155);
+        setX(xCord);
+        setY(yCord);
         this.xCord = xCord;
         this.yCord = yCord;
         this.num = num;
-        stackLocation.setFill(new ImagePattern(new Image("file:images/suit_image/" + num + "s.png"))); // Adds image representing suit
-        stackLocation.setStroke(Color.DARKGREEN); // Makes a border for the pile
-        stackLocation.setStrokeWidth(5);
+        setFill(new ImagePattern(new Image("file:images/suit_image/" + num + "s.png"))); // Adds image representing suit
+        setStroke(Color.DARKGREEN); // Makes a border for the pile
+        setStrokeWidth(5);
     }
 
-    private Rectangle getRec() {
-        return this.stackLocation;
+    Rectangle getRectangle() {
+        return this;
     }
 
-    /** Adds foundations to the pane**/
-    static Pane getFoundations(Pane pane) {
-        ArrayList<FoundationPile> foundation = new ArrayList<>();
-        for(int i = 0, n = 220, c = 1; i < 4; i++, c++) {
-            foundation.add(new FoundationPile(n += 130, 25, c));
-            pane.getChildren().add(foundation.get(i).getRec());
-        }
-        return pane;
+    Card getTopCard() {
+        return cardsInPile.get(cardsInPile.size() - 1);
+    }
 
+    /** Get amount of cards in pile**/
+    public int getPileSize() {
+        return cardsInPile.size();
+    }
+
+    void addCard(Card card) {
+
+    }
+
+    /** Remove card from pile **/
+    public void removeCard(Card card) {
+        cardsInPile.remove(card);
+        GamePane.gameBoard.getChildren().remove(card);
+    }
+
+    /** Clear pile for restart **/
+    public void clearPile() {
+        cardsInPile.clear();
     }
 }
