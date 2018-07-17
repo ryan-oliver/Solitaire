@@ -66,24 +66,24 @@ public class Card extends Rectangle {
 
     /** Check if card can be move to tableau by checking each suit **/
     boolean tableauMovable(int heldCardNum) {
-        if (checkClubs(heldCardNum)) {
+        if (checkTClubs(heldCardNum)) {
             return true;
         }
-        else if (checkDiamond(heldCardNum)) {
+        else if (checkTDiamond(heldCardNum)) {
             return true;
         }
-        else if (checkHearts(heldCardNum)) {
+        else if (checkTHearts(heldCardNum)) {
             return true;
         }
-        else if (checkSpades(heldCardNum)) {
+        else if (checkTSpades(heldCardNum)) {
             return true;
         }
         else
             return false;
     }
 
-    /** Check if held card value is one higher then the card under **/
-    private boolean checkClubs(int heldCardNum) {
+    /** Check if held card value is one higher than the card under **/
+    private boolean checkTClubs(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == 0)
             return false;
@@ -99,8 +99,8 @@ public class Card extends Rectangle {
             return false;
     }
 
-    /** Check if held card value is one higher then the card under **/
-    private boolean checkDiamond(int heldCardNum) {
+    /** Check if held card value is one higher than the card under **/
+    private boolean checkTDiamond(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == 0)
             return false;
@@ -116,8 +116,8 @@ public class Card extends Rectangle {
             return false;
     }
 
-    /** Check if held card value is one higher then the card under **/
-    private boolean checkHearts(int heldCardNum) {
+    /** Check if held card value is one higher than the card under **/
+    private boolean checkTHearts(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == 0)
             return false;
@@ -133,8 +133,8 @@ public class Card extends Rectangle {
             return false;
     }
 
-    /** Check if held card value is one higher then the card under **/
-    private boolean checkSpades(int heldCardNum) {
+    /** Check if held card value is one higher than the card under **/
+    private boolean checkTSpades(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == 0)
             return false;
@@ -149,6 +149,26 @@ public class Card extends Rectangle {
         else
             return false;
     }
+
+    /** (In Progress) Check if carc can be added to foundation **/
+    boolean foundationMovable(int heldCardNum) {
+        if (checkFClubs(heldCardNum)) {
+            return true;
+        }
+        else if (checkFDiamond(heldCardNum)) {
+            return true;
+        }
+        else if (checkFHearts(heldCardNum)) {
+            return true;
+        }
+        else if (checkFSpades(heldCardNum)) {
+            return true;
+        }
+        else
+            return false;
+    }
+
+
 
     /** Return card suit **/
     public int getSuit() {
