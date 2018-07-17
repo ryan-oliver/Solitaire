@@ -21,17 +21,18 @@ public class GamePane extends Pane {
     static void begin() {
         gameBoard = new Pane();
         gameBoard.setStyle("-fx-background-color: #008000");
-        getFoundations();
+        getFoundation();
         getTableau();
         getButtons();
     }
 
     /** Adds foundations to the pane **/
-    static void getFoundations() {
-        ArrayList<FoundationPile> foundation = new ArrayList<>();
+    static void getFoundation() {
+        Foundation.foundationPiles = new ArrayList<>();
         for(int i = 0, n = 220, c = 1; i < 4; i++, c++) {
-            foundation.add(new FoundationPile(n += 130, 25, c));
-            gameBoard.getChildren().add(foundation.get(i).getRectangle());
+            Foundation.foundationPiles.add(new FoundationPile(n += 130, 25, c));
+            Foundation.foundationPiles.get(i).addCard(new Card(String.valueOf(0), i));
+            gameBoard.getChildren().add(Foundation.foundationPiles.get(i).getRectangle());
         }
     }
 
@@ -99,12 +100,12 @@ public class GamePane extends Pane {
     }
 
     /** Restart the game with a new deck **/
-    static void restart() {
+    static void newGame() {
         // Set gameStarted to true
         setGameStarted(true);
 
         gameBoard.getChildren().clear();
-        getFoundations();
+        getFoundation();
         getTableau();
         getButtons();
 
@@ -147,14 +148,14 @@ public class GamePane extends Pane {
         gameBoard.getChildren().add(redo);
 
         // Restart button
-        Button restart = new Button("Restart");
-        restart.setLayoutX(50);
-        restart.setLayoutY(150);
-        restart.setStyle("-fx-border-color: #006400; -fx-border-width: 4px;");
-        gameBoard.getChildren().add(restart);
-        restart.setOnAction((e) -> {
+        Button newGame = new Button("New Game");
+        newGame.setLayoutX(50);
+        newGame.setLayoutY(150);
+        newGame.setStyle("-fx-border-color: #006400; -fx-border-width: 4px;");
+        gameBoard.getChildren().add(newGame);
+        newGame.setOnAction((e) -> {
             if (gameStarted) { // prevents restart button use if game has not started
-                GamePane.restart();
+                GamePane.newGame();
             }
         });
     }

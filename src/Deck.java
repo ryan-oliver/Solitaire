@@ -1,9 +1,6 @@
-import javafx.event.EventHandler;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -35,6 +32,8 @@ public class Deck {
                 Card card = new Card(String.valueOf(number), suit);
                 makeDraggable(card);
                 masterDeck.add(card);
+                if (number == 1 || number == 14 || number == 27 || number == 40)
+                    card.setAce(true);
                 number++;
             }
         }
@@ -62,17 +61,31 @@ public class Deck {
         });
 
         card.setOnDragOver(e -> {
-            topCard = Tableau.getTableau(e.getSceneX(), e.getSceneY()).getTopCard();
-            if (topCard.tableauMovable(Integer.valueOf(cardInHand.getNumber()))) {
-               e.acceptTransferModes(TransferMode.MOVE);
+            // In Foundations
+            if (e.getSceneY() < 200) {
+                if (Foundation.getFoundation(e.getSceneX(), e.getSceneY()).foundationMoveable(cardInHand)) {
+                    e.acceptTransferModes(TransferMode.MOVE);
+                    System.out.println("In foundatiions");
+                }
+            }
+            // In Tableau
+            if (e.getSceneY() > 200) {
+                topCard = Tableau.getTableau(e.getSceneX(), e.getSceneY()).getTopCard();
+                if (topCard.tableauMovable(Integer.valueOf(cardInHand.getNumber()))) {
+                    e.acceptTransferModes(TransferMode.MOVE);
+                    System.out.println("In tableau");
+
+                }
             }
         });
 
         card.setOnDragDropped(e -> {
+            // Foundation.foundationPiles.get(cardInHand.getSuit() - 1).addCard(cardInHand);
             boolean success = false;
+
             if (topCard.tableauMovable(Integer.valueOf(cardInHand.getNumber()))) {
-                System.out.println(db.getString() + " dropped");
-                System.out.println(db.getString() + " is over " + topCard.getNumber());
+                System.out.println(db.getString() + " (T)dropped");
+                System.out.println(db.getString() + " (T)is over " + topCard.getNumber());
                 Tableau.tableauPiles.get(topCard.getTableauPileNum()).getTopCard().setIsTopCard(false);
                 Tableau.tableauPiles.get(topCard.getTableauPileNum()).addCard(cardInHand);
                 Tableau.tableauPiles.get(topCard.getTableauPileNum()).getTopCard().setIsTopCard(true);
@@ -91,7 +104,6 @@ public class Deck {
                 Tableau.tableauPiles.get(card.getTableauPileNum()).addCard(card);
                 Tableau.tableauPiles.get(card.getTableauPileNum()).getTopCard().setIsTopCard(true);
                 System.out.println(db.getString() + " noDrag");
-
             }
         });
     }

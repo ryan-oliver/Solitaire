@@ -1,5 +1,6 @@
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
@@ -9,27 +10,28 @@ public class Card extends Rectangle {
 
     private String number; // number in order from 1 to 52. Used to pull image to card
     private int suit; // Clubs = 1, Diamonds = 2, Hearts = 3, Spades = 4
-    private boolean isCard; // Boolean status for mouseEvent
-    private double xCord; // x location of card
-    private double yCord; // y location of card
     private Image cardImage;
     private boolean inTableau;
     private int tableauPileNum;
     private boolean inFoundations;
     private int foundationsPileNum;
     private boolean isTopCard;
+    private boolean isAce;
 
     Card(String number, int suit) {
         this.number = number;
         this.suit = suit;
-        isCard = true;
         setHeight(150);
         setWidth(100);
-        setFill(new ImagePattern(new Image("file:images/card_images/" + number + ".png")));
-        cardImage = new Image("file:images/card_images/" + number + ".png", 100, 150, true, true);
-        setY(yCord);
-        setX(xCord);
+        if (Integer.valueOf(number) == 0) {
+            setFill(Color.TRANSPARENT);
+        }
+        if (Integer.valueOf(number) > 0) {
+            setFill(new ImagePattern(new Image("file:images/card_images/" + number + ".png")));
+            cardImage = new Image("file:images/card_images/" + number + ".png", 100, 150, true, true);
+        }
         setCursor(Cursor.HAND);
+        setAce(false);
     }
 
     Image getImage() {
@@ -39,6 +41,14 @@ public class Card extends Rectangle {
     // Return number in deck
     String getNumber() {
         return this.number;
+    }
+
+    void setAce(boolean isAce) {
+        this.isAce = isAce;
+    }
+
+    boolean isAce() {
+        return isAce;
     }
 
     void setIsTopCard(boolean isTop) {
@@ -77,7 +87,7 @@ public class Card extends Rectangle {
         else if (topCardNum == heldCardNum + 27) {
             return true;
         }
-        else if (topCardNum == heldCardNum + 40) {
+        else if (topCardNum == heldCardNum + 38) {
             return true;
         }
         else
@@ -86,7 +96,7 @@ public class Card extends Rectangle {
 
     private boolean checkDiamond(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
-        if (topCardNum == heldCardNum - 12) {
+        if (topCardNum == heldCardNum - 14) {
             return true;
         }
         else if (topCardNum == heldCardNum + 1) {
@@ -95,7 +105,7 @@ public class Card extends Rectangle {
         else if (topCardNum == heldCardNum + 14) {
             return true;
         }
-        else if (topCardNum == heldCardNum + 27) {
+        else if (topCardNum == heldCardNum + 25) {
             return true;
         }
         else
@@ -113,7 +123,7 @@ public class Card extends Rectangle {
         else if (topCardNum == heldCardNum + 1) {
             return true;
         }
-        else if (topCardNum == heldCardNum + 14) {
+        else if (topCardNum == heldCardNum + 12) {
             return true;
         }
         else
@@ -131,7 +141,7 @@ public class Card extends Rectangle {
         else if (topCardNum == heldCardNum - 12) {
             return true;
         }
-        else if (topCardNum == heldCardNum +1) {
+        else if (topCardNum == heldCardNum - 1) {
             return true;
         }
         else
@@ -140,22 +150,6 @@ public class Card extends Rectangle {
 
     public int getSuit() {
         return this.suit;
-    }
-
-    void setXCord(double xCord) {
-        this.xCord = xCord;
-    }
-
-    public double getXCord() {
-        return this.xCord;
-    }
-
-    void setYCord(double yCord) {
-        this.yCord = yCord;
-    }
-
-    public double getYCord() {
-        return this.yCord;
     }
     
     void setInTableau(boolean inTableau) {

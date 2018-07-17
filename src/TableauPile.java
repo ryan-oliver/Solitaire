@@ -63,37 +63,25 @@ public class TableauPile extends Rectangle {
         // Increment location of card to make whole stack visible
         if (cardsInPile.size() == 1) {
             card.setX(xCord + 2.5);
-            card.setXCord(card.getX());
             card.setY(yCord + 2.5);
-            card.setYCord(card.getY());
         }
         else if (cardsInPile.size() > 1){
             card.setX(xCord + 2.5);
-            card.setXCord(card.getX());
             card.setY(yCord + (25 * (cardsInPile.size() - 1)));
-            card.setYCord(card.getY());
 
         }
     }
 
     /** Add card to tableau pile **/
     void addCard(Card card) {
-        if (cardsInPile.get(cardsInPile.size() - 1).getNumber() != card.getNumber()) {
-            cardsInPile.add(card);
-            card.setTableauPileNum(num - 1);
-            card.setInTableau(true);
-            card.setInFoundations(false);
-            card.setX(xCord + 2.5);
-            card.setXCord(card.getX());
-            card.setY(yCord + (25 * (cardsInPile.size() - 1)));
-            card.setYCord(card.getY());
-            card.getCardImage().toFront();
-            GamePane.gameBoard.getChildren().add(card);
-        }
-        else if (cardsInPile.get(cardsInPile.size() - 1).getNumber() == card.getNumber()) {
-            card.setX(card.getXCord());
-            card.setY(card.getYCord());
-        }
+        cardsInPile.add(card);
+        card.setTableauPileNum(num - 1);
+        card.setInTableau(true);
+        card.setInFoundations(false);
+        card.setX(xCord + 2.5);
+        card.setY(yCord + (25 * (cardsInPile.size() - 1)));
+        card.getCardImage().toFront();
+        GamePane.gameBoard.getChildren().add(card);
     }
 
     /** Remove card from pile **/
