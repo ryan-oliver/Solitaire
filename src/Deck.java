@@ -53,7 +53,8 @@ public class Deck {
         card.setOnDragOver(e -> {
             // In Foundations
             if (e.getSceneY() < 200) {
-                if (Foundation.getFoundation(e.getSceneX(), e.getSceneY()).foundationMoveable(cardInHand)) {
+                topCard = Foundation.getFoundation(e.getSceneX(), e.getSceneY()).getTopCard();
+                if (topCard.foundationMovable(Integer.valueOf(cardInHand.getNumber()))) {
                     e.acceptTransferModes(TransferMode.MOVE);
                     System.out.println("In foundatiions");
                 }

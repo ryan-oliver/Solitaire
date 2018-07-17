@@ -69,17 +69,6 @@ class FoundationPile extends Rectangle{
         cardsInPile.clear();
     }
 
-    /** (In Progress) Check if carc can be added to foundation **/
-    boolean foundationMoveable(Card card) {
-        if (checkSuit(card)) {
-            if (card.isAce())
-                return true;
-            else if (card.getNumber() == cardsInPile.get(cardsInPile.size() - 1).getNumber() + 1)
-                return true;
-        }
-        return false;
-    }
-
     /** Check if card can be added to foundation **/
     boolean checkSuit(Card card) {
         if (card.getSuit() == suit)

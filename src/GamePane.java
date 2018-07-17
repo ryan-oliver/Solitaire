@@ -33,6 +33,7 @@ public class GamePane extends Pane {
             Foundation.foundationPiles.add(new FoundationPile(n += 130, 25, c));
             Foundation.foundationPiles.get(i).addCard(new Card(String.valueOf(0), i)); // (In progress) add invisible card to enable add ace to foundations
             gameBoard.getChildren().add(Foundation.foundationPiles.get(i).getRectangle());
+            gameBoard.getChildren().add(Foundation.foundationPiles.get(i).getTopCard());
         }
     }
 

@@ -23,8 +23,9 @@ public class Card extends Rectangle {
         this.suit = suit;
         setHeight(150);
         setWidth(100);
-        if (Integer.valueOf(number) == 0) {
+        if (Integer.valueOf(number) == 0) { // Add invisible cards to allow ace transfer to foundations
             setFill(Color.TRANSPARENT);
+
         }
         if (Integer.valueOf(number) > 0) {
             setFill(new ImagePattern(new Image("file:images/card_images/" + number + ".png")));
@@ -84,18 +85,16 @@ public class Card extends Rectangle {
     /** Check if held card value is one higher then the card under **/
     private boolean checkClubs(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
-        if (topCardNum == heldCardNum + 1) {
+        if (topCardNum == 0)
+            return false;
+        if (topCardNum == heldCardNum + 1)
             return true;
-        }
-        else if (topCardNum == heldCardNum + 14) {
+        else if (topCardNum == heldCardNum + 14)
             return true;
-        }
-        else if (topCardNum == heldCardNum + 27) {
+        else if (topCardNum == heldCardNum + 27)
             return true;
-        }
-        else if (topCardNum == heldCardNum + 38) {
+        else if (topCardNum == heldCardNum + 40)
             return true;
-        }
         else
             return false;
     }
@@ -103,18 +102,16 @@ public class Card extends Rectangle {
     /** Check if held card value is one higher then the card under **/
     private boolean checkDiamond(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
-        if (topCardNum == heldCardNum - 14) {
+        if (topCardNum == 0)
+            return false;
+        if (topCardNum == heldCardNum - 12)
             return true;
-        }
-        else if (topCardNum == heldCardNum + 1) {
+        else if (topCardNum == heldCardNum + 1)
             return true;
-        }
-        else if (topCardNum == heldCardNum + 14) {
+        else if (topCardNum == heldCardNum + 14)
             return true;
-        }
-        else if (topCardNum == heldCardNum + 25) {
+        else if (topCardNum == heldCardNum + 27)
             return true;
-        }
         else
             return false;
     }
@@ -122,18 +119,16 @@ public class Card extends Rectangle {
     /** Check if held card value is one higher then the card under **/
     private boolean checkHearts(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
-        if (topCardNum == heldCardNum - 25) {
+        if (topCardNum == 0)
+            return false;
+        if (topCardNum == heldCardNum - 25)
             return true;
-        }
-        else if (topCardNum == heldCardNum - 12) {
+        else if (topCardNum == heldCardNum - 12)
             return true;
-        }
-        else if (topCardNum == heldCardNum + 1) {
+        else if (topCardNum == heldCardNum + 1)
             return true;
-        }
-        else if (topCardNum == heldCardNum + 12) {
+        else if (topCardNum == heldCardNum + 14)
             return true;
-        }
         else
             return false;
     }
@@ -141,18 +136,16 @@ public class Card extends Rectangle {
     /** Check if held card value is one higher then the card under **/
     private boolean checkSpades(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
-        if (topCardNum == heldCardNum - 38) {
+        if (topCardNum == 0)
+            return false;
+        if (topCardNum == heldCardNum - 38)
             return true;
-        }
-        else if (topCardNum == heldCardNum - 25) {
+        else if (topCardNum == heldCardNum - 25)
             return true;
-        }
-        else if (topCardNum == heldCardNum - 12) {
+        else if (topCardNum == heldCardNum - 12)
             return true;
-        }
-        else if (topCardNum == heldCardNum - 1) {
+        else if (topCardNum == heldCardNum + 1)
             return true;
-        }
         else
             return false;
     }
