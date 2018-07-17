@@ -10,7 +10,8 @@ public class Deck {
 
     static ArrayList<Card> masterDeck;
     static Dragboard db;
-    static Card topCard;
+    static Card topTCard;
+    static Card topFCard;
     static Card cardInHand;
 
     Deck() {
@@ -42,46 +43,42 @@ public class Deck {
                 content.putString(card.getNumber());
                 content.putImage(card.getImage());
                 db.setContent(content);
-                Tableau.tableauPiles.get(card.getTableauPileNum()).removeCard(card);
-                Tableau.tableauPiles.get(card.getTableauPileNum()).getTopCard().setIsTopCard(true);
-                System.out.println(db.getString() + " startDrag");
+                if (card.isInFoundations()) {
+
+                }
+                if (card.isInTableau()) {
+                    Tableau.tableauPiles.get(card.getTableauPileNum()).removeCard(card);
+                    Tableau.tableauPiles.get(card.getTableauPileNum()).getTopCard().setIsTopCard(true);
+                    System.out.println(db.getString() + " startDrag");
+                }
 
                 e.consume();
             }
         });
 
         card.setOnDragOver(e -> {
-            // In Foundations
-            if (e.getSceneY() < 200) {
-                topCard = Foundation.getFoundation(e.getSceneX(), e.getSceneY()).getTopCard();
-                if (topCard.foundationMovable(Integer.valueOf(cardInHand.getNumber()))) {
-                    e.acceptTransferModes(TransferMode.MOVE);
-                    System.out.println("In foundatiions");
-                }
-            }
-            // In Tableau
-            if (e.getSceneY() > 200) {
-                topCard = Tableau.getTableau(e.getSceneX(), e.getSceneY()).getTopCard();
-                if (topCard.tableauMovable(Integer.valueOf(cardInHand.getNumber()))) {
-                    e.acceptTransferModes(TransferMode.MOVE);
-                    System.out.println("In tableau");
+                    // In Tableau
+                    topTCard = Tableau.getTableau(e.getSceneX(), e.getSceneY()).getTopCard();
+                    boolean checkT = topTCard.tableauMovable(Integer.valueOf(cardInHand.getNumber()));
+                    if (checkT) {
+                        e.acceptTransferModes(TransferMode.MOVE);
+                        System.out.println("In tableau");
 
-                }
-            }
-        });
+                    }
+                });
 
         card.setOnDragDropped(e -> {
-            // Foundation.foundationPiles.get(cardInHand.getSuit() - 1).addCard(cardInHand);
             boolean success = false;
-
-            if (topCard.tableauMovable(Integer.valueOf(cardInHand.getNumber()))) {
+            if (topTCard.tableauMovable(Integer.valueOf(cardInHand.getNumber()))) {
+                cardInHand.setInTableau(true);
                 System.out.println(db.getString() + " (T)dropped");
-                System.out.println(db.getString() + " (T)is over " + topCard.getNumber());
-                Tableau.tableauPiles.get(topCard.getTableauPileNum()).getTopCard().setIsTopCard(false);
-                Tableau.tableauPiles.get(topCard.getTableauPileNum()).addCard(cardInHand);
-                Tableau.tableauPiles.get(topCard.getTableauPileNum()).getTopCard().setIsTopCard(true);
+                System.out.println(db.getString() + " (T)is over " + topTCard.getNumber());
+                Tableau.tableauPiles.get(topTCard.getTableauPileNum()).getTopCard().setIsTopCard(false);
+                Tableau.tableauPiles.get(topTCard.getTableauPileNum()).addCard(cardInHand);
+                Tableau.tableauPiles.get(topTCard.getTableauPileNum()).getTopCard().setIsTopCard(true);
                 success = true;
             }
+
             e.setDropCompleted(success);
             e.consume();
         });

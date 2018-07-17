@@ -9,9 +9,16 @@ public class GamePane extends Pane {
     
     static Pane gameBoard;
     private static boolean gameStarted = false; // Boolean to know if game has started
+    static double xCord; // Test to separate tableau from foundations
 
 
     GamePane() {
+    }
+
+    static void setxCord() {
+        gameBoard.setOnMouseDragged(e -> {
+            xCord = e.getX();
+        });
     }
 
     static void setGameStarted(boolean status) {
@@ -31,9 +38,8 @@ public class GamePane extends Pane {
         Foundation.foundationPiles = new ArrayList<>();
         for(int i = 0, n = 220, c = 1; i < 4; i++, c++) {
             Foundation.foundationPiles.add(new FoundationPile(n += 130, 25, c));
-            Foundation.foundationPiles.get(i).addCard(new Card(String.valueOf(0), i)); // (In progress) add invisible card to enable add ace to foundations
+            Foundation.foundationPiles.get(i).addCard(new Card(String.valueOf(0), i));
             gameBoard.getChildren().add(Foundation.foundationPiles.get(i).getRectangle());
-            gameBoard.getChildren().add(Foundation.foundationPiles.get(i).getTopCard());
         }
     }
 

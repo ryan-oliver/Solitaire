@@ -13,6 +13,8 @@ public class Card extends Rectangle {
     private Image cardImage;
     private boolean inTableau;
     private int tableauPileNum;
+    boolean tableauMovable;
+    boolean foundationsMovable;
     private boolean inFoundations;
     private int foundationsPileNum;
     private boolean isTopCard;
@@ -67,19 +69,20 @@ public class Card extends Rectangle {
     /** Check if card can be move to tableau by checking each suit **/
     boolean tableauMovable(int heldCardNum) {
         if (checkTClubs(heldCardNum)) {
-            return true;
+            tableauMovable =  true;
         }
         else if (checkTDiamond(heldCardNum)) {
-            return true;
+            tableauMovable =  true;
         }
         else if (checkTHearts(heldCardNum)) {
-            return true;
+            tableauMovable =  true;
         }
         else if (checkTSpades(heldCardNum)) {
-            return true;
+            tableauMovable =  true;
         }
         else
-            return false;
+            tableauMovable =  false;
+        return tableauMovable;
     }
 
     /** Check if held card value is one higher than the card under **/
@@ -87,7 +90,7 @@ public class Card extends Rectangle {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == 0)
             return false;
-        if (topCardNum == heldCardNum + 1)
+        else if (topCardNum == heldCardNum + 1)
             return true;
         else if (topCardNum == heldCardNum + 14)
             return true;
@@ -104,7 +107,7 @@ public class Card extends Rectangle {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == 0)
             return false;
-        if (topCardNum == heldCardNum - 12)
+        else if (topCardNum == heldCardNum - 12)
             return true;
         else if (topCardNum == heldCardNum + 1)
             return true;
@@ -121,7 +124,7 @@ public class Card extends Rectangle {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == 0)
             return false;
-        if (topCardNum == heldCardNum - 25)
+        else if (topCardNum == heldCardNum - 25)
             return true;
         else if (topCardNum == heldCardNum - 12)
             return true;
@@ -138,7 +141,7 @@ public class Card extends Rectangle {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == 0)
             return false;
-        if (topCardNum == heldCardNum - 38)
+        else if (topCardNum == heldCardNum - 38)
             return true;
         else if (topCardNum == heldCardNum - 25)
             return true;
@@ -152,23 +155,45 @@ public class Card extends Rectangle {
 
     /** (In Progress) Check if carc can be added to foundation **/
     boolean foundationMovable(int heldCardNum) {
-        if (checkFClubs(heldCardNum)) {
-            return true;
-        }
-        else if (checkFDiamond(heldCardNum)) {
-            return true;
-        }
-        else if (checkFHearts(heldCardNum)) {
-            return true;
-        }
-        else if (checkFSpades(heldCardNum)) {
-            return true;
-        }
+        int topCardNum = Integer.valueOf(getNumber());
+        if (checkFClubsAce(heldCardNum, topCardNum))
+            foundationsMovable = true;
+        else if (checkFDiamondAce(heldCardNum, topCardNum))
+            foundationsMovable = true;
+        else if (checkFHeartsAce(heldCardNum, topCardNum))
+            foundationsMovable = true;
+        else if (checkFSpadesAce(heldCardNum, topCardNum))
+            foundationsMovable = true;
+        else if (topCardNum == heldCardNum - 1 && getSuit() == Deck.masterDeck.get(heldCardNum).getSuit())
+            foundationsMovable = true;
         else
-            return false;
+            foundationsMovable = false;
+        return foundationsMovable;
     }
 
+    private boolean checkFClubsAce(int heldCardNum, int topCardNum) {
+        if (topCardNum == heldCardNum - 1 && getSuit() == Deck.masterDeck.get(heldCardNum).getSuit())
+            return true;
+        return false;
+    }
 
+    private boolean checkFDiamondAce(int heldCardNum, int topCardNum) {
+        if (topCardNum == heldCardNum - 14 && getSuit() == Deck.masterDeck.get(heldCardNum).getSuit())
+            return true;
+        return false;
+    }
+
+    private boolean checkFHeartsAce(int heldCardNum, int topCardNum) {
+        if (topCardNum == heldCardNum - 27 && getSuit() == Deck.masterDeck.get(heldCardNum).getSuit())
+            return true;
+        return false;
+    }
+
+    private boolean checkFSpadesAce(int heldCardNum, int topCardNum) {
+        if (topCardNum == heldCardNum - 40 && getSuit() == Deck.masterDeck.get(heldCardNum).getSuit())
+            return true;
+        return false;
+    }
 
     /** Return card suit **/
     public int getSuit() {

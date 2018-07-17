@@ -13,6 +13,7 @@ class FoundationPile extends Rectangle{
     private double yCord; // y location on grid
     private int suit; // Number to represent foundation suit
     private ArrayList<Card> cardsInPile; // array of cards in pile
+    static FoundationPile selectedPile;
 
     /** Creates a location for a foundation pile**/
     FoundationPile(double xCord, double yCord, int num) {
@@ -43,6 +44,10 @@ class FoundationPile extends Rectangle{
         return cardsInPile.get(cardsInPile.size() - 1);
     }
 
+    ArrayList<Card> getCardsInPile() {
+        return cardsInPile;
+    }
+
     /** Get amount of cards in pile**/
     public int getPileSize() {
         return cardsInPile.size();
@@ -56,6 +61,8 @@ class FoundationPile extends Rectangle{
         card.setInFoundations(true);
         card.setX(xCord + 2.5);
         card.setY(yCord + 2.5);
+        card.getCardImage().toFront();
+        GamePane.gameBoard.getChildren().add(card.getCardImage());
     }
 
     /** Remove card from pile **/
@@ -74,5 +81,14 @@ class FoundationPile extends Rectangle{
         if (card.getSuit() == suit)
             return true;
         return false;
+    }
+
+    static FoundationPile getFPile(double xCord, double yCord) {
+        for (int i = 0; i < 4; i++){
+            if (Foundation.foundationPiles.get(i).contains(xCord, yCord)) {
+                selectedPile = Foundation.foundationPiles.get(i);
+            }
+        }
+        return selectedPile;
     }
 }
