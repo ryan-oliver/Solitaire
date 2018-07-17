@@ -38,27 +38,32 @@ public class Card extends Rectangle {
         return cardImage;
     }
 
-    // Return number in deck
+    /** Return number in deck **/
     String getNumber() {
         return this.number;
     }
 
+    /** Set ace card as ace **/
     void setAce(boolean isAce) {
         this.isAce = isAce;
     }
 
+    /** Check if ace **/
     boolean isAce() {
         return isAce;
     }
 
+    /** Set top card so only top card can be dragged **/
     void setIsTopCard(boolean isTop) {
         isTopCard = isTop;
     }
 
+    /** Check if top card **/
     boolean isTopCard() {
         return isTopCard;
     }
 
+    /** Check if card can be move to tableau by checking each suit **/
     boolean tableauMovable(int heldCardNum) {
         if (checkClubs(heldCardNum)) {
             return true;
@@ -76,6 +81,7 @@ public class Card extends Rectangle {
             return false;
     }
 
+    /** Check if held card value is one higher then the card under **/
     private boolean checkClubs(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == heldCardNum + 1) {
@@ -94,6 +100,7 @@ public class Card extends Rectangle {
             return false;
     }
 
+    /** Check if held card value is one higher then the card under **/
     private boolean checkDiamond(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == heldCardNum - 14) {
@@ -112,6 +119,7 @@ public class Card extends Rectangle {
             return false;
     }
 
+    /** Check if held card value is one higher then the card under **/
     private boolean checkHearts(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == heldCardNum - 25) {
@@ -130,6 +138,7 @@ public class Card extends Rectangle {
             return false;
     }
 
+    /** Check if held card value is one higher then the card under **/
     private boolean checkSpades(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == heldCardNum - 38) {
@@ -148,10 +157,12 @@ public class Card extends Rectangle {
             return false;
     }
 
+    /** Return card suit **/
     public int getSuit() {
         return this.suit;
     }
-    
+
+    /** Mark card as in tableau **/
     void setInTableau(boolean inTableau) {
         this.inTableau = inTableau;
     }
@@ -160,6 +171,7 @@ public class Card extends Rectangle {
         return inTableau;
     }
 
+    /** Mark card as in foundations **/
     public void setInFoundations(boolean inFoundations) {
         this.inFoundations = inFoundations;
     }
@@ -168,6 +180,7 @@ public class Card extends Rectangle {
         return inFoundations;
     }
 
+    /** Set tableau that card is in **/
     void setTableauPileNum(int tableauPileNum) {
         this.tableauPileNum = tableauPileNum;
     }
@@ -176,6 +189,7 @@ public class Card extends Rectangle {
         return tableauPileNum;
     }
 
+    /** Set foundations that card is in **/
     public void setFoundationsPileNum(int foundationsPileNum) {
         this.foundationsPileNum = foundationsPileNum;
     }
@@ -184,6 +198,7 @@ public class Card extends Rectangle {
         return foundationsPileNum;
     }
 
+    /** Return image of card**/
     Rectangle getCardImage() {
         return this;
     }

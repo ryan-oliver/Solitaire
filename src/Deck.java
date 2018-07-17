@@ -16,13 +16,7 @@ public class Deck {
     Deck() {
     }
 
-    public static String getCardNumber(Card card) {
-        return card.getNumber();
-    }
-
-    /**
-     * Create a deck of Cards
-     **/
+    /** Create a deck of Cards **/
     static void getCards() {
         // Make masterDeck
         masterDeck = new ArrayList<>();
@@ -38,11 +32,7 @@ public class Deck {
             }
         }
     }
-
-    static Card getCard(String num) {
-        return masterDeck.get(Integer.valueOf(num));
-    }
-
+    /** Mouse events that make card draggable **/
     static void makeDraggable(Card card) {
         card.setOnDragDetected(e -> {
             cardInHand = card;

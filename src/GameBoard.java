@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 public class GameBoard extends Application {
 
+    /** Main method **/
     public void start(Stage primaryStage) {
 
         GamePane.begin();

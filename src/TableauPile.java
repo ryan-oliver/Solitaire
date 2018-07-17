@@ -32,7 +32,7 @@ public class TableauPile extends Rectangle {
         return this;
     }
 
-
+    /** Return top card in tableau pile **/
     Card getTopCard() {
         return cardsInPile.get(cardsInPile.size() - 1);
     }

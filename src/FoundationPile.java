@@ -11,14 +11,14 @@ class FoundationPile extends Rectangle{
 
     private double xCord; // x location on grid
     private double yCord; // y location on grid
-    private int suit; // Number to represent card suit
-    private ArrayList<Card> cardsInPile;
+    private int suit; // Number to represent foundation suit
+    private ArrayList<Card> cardsInPile; // array of cards in pile
 
     /** Creates a location for a foundation pile**/
     FoundationPile(double xCord, double yCord, int num) {
         setWidth(105);
         setHeight(155);
-        setX(xCord);
+        setX(xCord); // Set x location on pane
         setY(yCord);
         this.xCord = xCord;
         this.yCord = yCord;
@@ -29,13 +29,16 @@ class FoundationPile extends Rectangle{
         cardsInPile = new ArrayList<>();
     }
 
+    /** Return foundation pile image **/
     Rectangle getRectangle() {
         return this;
     }
 
-    int getFNumber() {
+    int getSuit() {
         return suit;
     }
+
+    /** Return top card in pile **/
     Card getTopCard() {
         return cardsInPile.get(cardsInPile.size() - 1);
     }
@@ -45,6 +48,7 @@ class FoundationPile extends Rectangle{
         return cardsInPile.size();
     }
 
+    /** Add card to pile **/
     void addCard(Card card) {
         cardsInPile.add(card);
         card.setFoundationsPileNum(suit - 1);
@@ -65,6 +69,7 @@ class FoundationPile extends Rectangle{
         cardsInPile.clear();
     }
 
+    /** (In Progress) Check if carc can be added to foundation **/
     boolean foundationMoveable(Card card) {
         if (checkSuit(card)) {
             if (card.isAce())
@@ -75,6 +80,7 @@ class FoundationPile extends Rectangle{
         return false;
     }
 
+    /** Check if card can be added to foundation **/
     boolean checkSuit(Card card) {
         if (card.getSuit() == suit)
             return true;

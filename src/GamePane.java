@@ -31,7 +31,7 @@ public class GamePane extends Pane {
         Foundation.foundationPiles = new ArrayList<>();
         for(int i = 0, n = 220, c = 1; i < 4; i++, c++) {
             Foundation.foundationPiles.add(new FoundationPile(n += 130, 25, c));
-            Foundation.foundationPiles.get(i).addCard(new Card(String.valueOf(0), i));
+            Foundation.foundationPiles.get(i).addCard(new Card(String.valueOf(0), i)); // (In progress) add invisible card to enable add ace to foundations
             gameBoard.getChildren().add(Foundation.foundationPiles.get(i).getRectangle());
         }
     }
@@ -120,6 +120,7 @@ public class GamePane extends Pane {
         deal();
     }
 
+    /** Add buttons **/
     static void getButtons() {
         // Start button
         Button start = new Button("Start");

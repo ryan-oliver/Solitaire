@@ -10,6 +10,7 @@ public class Tableau {
     Tableau() {
     }
 
+    /** Get tableau pile that mouse is over **/
     static TableauPile getTableau(double xCord, double yCord) {
         for(int i = 0; i < 13; i++) {
             if (tableauPiles.get(i).getTopCard().contains(xCord, yCord))
