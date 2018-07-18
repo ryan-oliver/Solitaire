@@ -48,7 +48,7 @@ public class Pile extends Rectangle {
 
     /** Return top card in pile **/
     Card getTopCard() {
-        return cardsInPile.get(cardsInPile.size() - 1);
+        return cardsInPile.get(cardsInPile.size() -1);
     }
 
     /** Get amount of cards in pile**/
@@ -113,14 +113,18 @@ public class Pile extends Rectangle {
                 content.putImage(card.getImage());
                 db.setContent(content);
                 Pile.piles.get(card.getPileNum()).removeCard(card);
-                Pile.piles.get(card.getPileNum()).getTopCard().setIsTopCard(true);
+                if (Pile.piles.get(card.getPileNum()).getPileSize() > 0)
+                    Pile.piles.get(card.getPileNum()).getTopCard().setIsTopCard(true);
                 e.consume();
             }
         });
 
         card.setOnDragOver(e -> {
             // In Tableau
-            topCard = Pile.getPile(e.getSceneX(), e.getSceneY()).getTopCard();
+                if (cardInHand.getPileNum() > 0)
+                    topCard = Pile.getPile(e.getSceneX(), e.getSceneY()).getTopCard();
+                else
+                    topCard = cardInHand;
             boolean checkF = topCard.foundationMovable(Integer.valueOf(cardInHand.getNumber()));
             if (checkF) {
                 e.acceptTransferModes(TransferMode.MOVE);
@@ -158,7 +162,8 @@ public class Pile extends Rectangle {
             if (e.getTransferMode() == TransferMode.MOVE) {
             }
             if (e.getTransferMode() == null) {
-                Pile.piles.get(card.getPileNum()).getTopCard().setIsTopCard(false);
+                if (Pile.piles.get(card.getPileNum()).getPileSize() > 0)
+                    Pile.piles.get(card.getPileNum()).getTopCard().setIsTopCard(false);
                 Pile.piles.get(card.getPileNum()).addCard(card);
                 Pile.piles.get(card.getPileNum()).getTopCard().setIsTopCard(true);
             }

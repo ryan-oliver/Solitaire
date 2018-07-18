@@ -202,9 +202,17 @@ public class Card extends Rectangle {
         this.inTableau = inTableau;
     }
 
+    public boolean isInTableau() {
+        return inTableau;
+    }
+
     /** Mark card as in foundations **/
     public void setInFoundations(boolean inFoundations) {
         this.inFoundations = inFoundations;
+    }
+
+    public Boolean isInFoundations() {
+        return inFoundations;
     }
 
     /** Set tableau that card is in **/
