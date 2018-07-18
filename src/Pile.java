@@ -123,8 +123,9 @@ public class Pile extends Rectangle {
         card.setOnDragOver(e -> {
             // In Tableau
             topCard = Pile.getPile(e.getSceneX(), e.getSceneY()).getTopCard();
+            System.out.println(topCard.getPileNum());
             boolean checkF = topCard.foundationMovable(Integer.valueOf(cardInHand.getNumber()));
-            if (Pile.getPile(e.getSceneX(), e.getSceneY()).isFoundationPile) {
+            if (checkF) {
                 e.acceptTransferModes(TransferMode.MOVE);
                 System.out.println("In foundations");
             }

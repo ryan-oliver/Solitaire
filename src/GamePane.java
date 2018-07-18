@@ -33,10 +33,13 @@ public class GamePane extends Pane {
         for(int i = 0, a = 1, n = 220; i < 4; i++, num++, a += 13) {
             Pile.piles.add(new FoundationPile(n += 130, 25, num));
             Pile.piles.get(i).setIsFoundationPile(true);
-            Pile.piles.get(i).addCard(new Card(String.valueOf(a), i + 1));
             gameBoard.getChildren().add(Pile.piles.get(i).getRectangle());
-            Pile.piles.get(i).getTopCard().setFill(Color.TRANSPARENT);
+            Card card = new Card(String.valueOf(a), i + 1);
+            card.setFill(Color.TRANSPARENT);
+            Pile.makeDraggable(card);
+            Pile.piles.get(i).addCard(card);
         }
+        num = 5;
         for (int t = 4, n = 32; t < 11; t++, num++) { // loops set x location before adding to gameBoard. n = x location
             Pile.piles.add(new TableauPile(n += 130, 210, num)); // creates and adds TableauPile object to Tableau.tableauPiles array
             gameBoard.getChildren().add(Pile.piles.get(t).getRectangle()); // add pile to the gameBoard
