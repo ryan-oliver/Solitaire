@@ -106,6 +106,7 @@ public class GamePane extends Pane {
         // Clear tableau, foundations, and deck arrays
         Pile.piles.clear();
         Deck.masterDeck.clear();
+        num = 1;
 
         getPiles();
         getButtons();
@@ -143,7 +144,7 @@ public class GamePane extends Pane {
         redo.setStyle("-fx-border-color: #006400; -fx-border-width: 4px;");
         gameBoard.getChildren().add(redo);
 
-        /** Restart button
+        // New Game button
         Button newGame = new Button("New Game");
         newGame.setLayoutX(50);
         newGame.setLayoutY(150);
@@ -154,6 +155,5 @@ public class GamePane extends Pane {
                 GamePane.newGame();
             }
         });
-         **/
     }
 }
