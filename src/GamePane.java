@@ -50,7 +50,6 @@ public class GamePane extends Pane {
             Pile.piles.add(new TableauPile(n += 130, 500, num));
             gameBoard.getChildren().add(Pile.piles.get(t).getRectangle());
         }
-
     }
 
     /** Create and deal deck of cards **/
