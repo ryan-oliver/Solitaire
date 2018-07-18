@@ -13,7 +13,9 @@ public class TableauPile extends Pile {
 
     /** Add card to tableau pile **/
     void addCard(Card card) {
+        Deck.lastMoved = card;
         cardsInPile.add(card);
+        card.setOldPileNum(card.getPileNum());
         card.setPileNum(num - 1);
         card.setInTableau(true);
         card.setInFoundations(false);

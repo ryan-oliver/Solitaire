@@ -131,23 +131,23 @@ public class GamePane extends Pane {
         });
 
         // Undo button
-        Button undo = new Button("Undo");
+        Button undo = new Button("Undo/Redo");
         undo.setLayoutX(50); // X and Y locations of button
         undo.setLayoutY(70);
         undo.setStyle("-fx-border-color: #006400; -fx-border-width: 4px;");
         gameBoard.getChildren().add(undo);
+        undo.setOnAction(e -> {
+            if (gameStarted) {
+                Pile.piles.get(Deck.lastMoved.getPileNum()).removeCard(Deck.lastMoved);
+                Pile.piles.get(Deck.lastMoved.getOldPileNum()).addCard(Deck.lastMoved);
+            }
+        });
 
-        // Redo button
-        Button redo = new Button("Redo");
-        redo.setLayoutX(50);
-        redo.setLayoutY(110);
-        redo.setStyle("-fx-border-color: #006400; -fx-border-width: 4px;");
-        gameBoard.getChildren().add(redo);
 
         // New Game button
         Button newGame = new Button("New Game");
         newGame.setLayoutX(50);
-        newGame.setLayoutY(150);
+        newGame.setLayoutY(110);
         newGame.setStyle("-fx-border-color: #006400; -fx-border-width: 4px;");
         gameBoard.getChildren().add(newGame);
         newGame.setOnAction((e) -> {

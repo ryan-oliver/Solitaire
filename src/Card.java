@@ -10,6 +10,7 @@ public class Card extends Rectangle {
     private String number; // number in order from 1 to 52. Used to pull image to card
     private int suit; // Clubs = 1, Diamonds = 2, Hearts = 3, Spades = 4
     int pileNum;
+    int oldPileNum;
     private Image cardImage;
     private boolean inTableau;
     boolean tableauMovable;
@@ -201,22 +202,22 @@ public class Card extends Rectangle {
         this.inTableau = inTableau;
     }
 
-    public boolean isInTableau() {
-        return inTableau;
-    }
-
     /** Mark card as in foundations **/
     public void setInFoundations(boolean inFoundations) {
         this.inFoundations = inFoundations;
     }
 
-    public boolean isInFoundations() {
-        return inFoundations;
-    }
-
     /** Set tableau that card is in **/
     void setPileNum(int pileNum) {
         this.pileNum = pileNum;
+    }
+
+    void setOldPileNum(int oldPileNum) {
+        this.oldPileNum = oldPileNum;
+    }
+
+    int getOldPileNum() {
+        return oldPileNum;
     }
 
     int getPileNum() {

@@ -16,7 +16,9 @@ class FoundationPile extends Pile {
 
     /** Add card to pile **/
     void addCard(Card card) {
+        Deck.lastMoved = card;
         cardsInPile.add(card);
+        card.setOldPileNum(card.getPileNum());
         card.setPileNum(suit - 1);
         card.setInTableau(false);
         card.setInFoundations(true);

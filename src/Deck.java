@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Deck {
 
     static ArrayList<Card> masterDeck;
+    static Card lastMoved;
 
     Deck() {
     }

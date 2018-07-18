@@ -114,8 +114,6 @@ public class Pile extends Rectangle {
                 db.setContent(content);
                 Pile.piles.get(card.getPileNum()).removeCard(card);
                 Pile.piles.get(card.getPileNum()).getTopCard().setIsTopCard(true);
-                System.out.println(db.getString() + " startDrag");
-
                 e.consume();
             }
         });
@@ -123,16 +121,13 @@ public class Pile extends Rectangle {
         card.setOnDragOver(e -> {
             // In Tableau
             topCard = Pile.getPile(e.getSceneX(), e.getSceneY()).getTopCard();
-            System.out.println(topCard.getPileNum());
             boolean checkF = topCard.foundationMovable(Integer.valueOf(cardInHand.getNumber()));
             if (checkF) {
                 e.acceptTransferModes(TransferMode.MOVE);
-                System.out.println("In foundations");
             }
             boolean checkT = topCard.tableauMovable(Integer.valueOf(cardInHand.getNumber()));
             if (checkT) {
                 e.acceptTransferModes(TransferMode.MOVE);
-                System.out.println(db.getString() + " (T)is over " + topCard.getNumber());
             }
         });
 
@@ -141,7 +136,6 @@ public class Pile extends Rectangle {
             if (topCard.foundationMovable(Integer.valueOf(cardInHand.getNumber()))) {
                 cardInHand.setInFoundations(true);
                 cardInHand.setInTableau(false);
-                System.out.println(db.getString() + "(F)dropped");
                 Pile.piles.get(topCard.getPileNum()).getTopCard().setIsTopCard(false);
                 Pile.piles.get(topCard.getPileNum()).addCard(cardInHand);
                 Pile.piles.get(topCard.getPileNum()).getTopCard().setIsTopCard(true);
@@ -150,7 +144,6 @@ public class Pile extends Rectangle {
             if (topCard.tableauMovable(Integer.valueOf(cardInHand.getNumber()))) {
                 cardInHand.setInTableau(true);
                 cardInHand.setInFoundations(false);
-                System.out.println(db.getString() + " (T)dropped");
                 Pile.piles.get(topCard.getPileNum()).getTopCard().setIsTopCard(false);
                 Pile.piles.get(topCard.getPileNum()).addCard(cardInHand);
                 Pile.piles.get(topCard.getPileNum()).getTopCard().setIsTopCard(true);
@@ -163,13 +156,11 @@ public class Pile extends Rectangle {
 
         card.setOnDragDone(e -> {
             if (e.getTransferMode() == TransferMode.MOVE) {
-                System.out.println(db.getString() + " goodDrag");
             }
             if (e.getTransferMode() == null) {
                 Pile.piles.get(card.getPileNum()).getTopCard().setIsTopCard(false);
                 Pile.piles.get(card.getPileNum()).addCard(card);
                 Pile.piles.get(card.getPileNum()).getTopCard().setIsTopCard(true);
-                System.out.println(db.getString() + " noDrag");
             }
         });
     }
