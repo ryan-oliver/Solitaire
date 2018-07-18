@@ -1,5 +1,7 @@
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -9,16 +11,9 @@ public class GamePane extends Pane {
     
     static Pane gameBoard;
     private static boolean gameStarted = false; // Boolean to know if game has started
-    static double xCord; // Test to separate tableau from foundations
-
+    static int num = 1;
 
     GamePane() {
-    }
-
-    static void setxCord() {
-        gameBoard.setOnMouseDragged(e -> {
-            xCord = e.getX();
-        });
     }
 
     static void setGameStarted(boolean status) {
@@ -28,37 +23,31 @@ public class GamePane extends Pane {
     static void begin() {
         gameBoard = new Pane();
         gameBoard.setStyle("-fx-background-color: #008000");
-        getFoundation();
-        getTableau();
+        getPiles();
         getButtons();
     }
 
-    /** Adds foundations to the pane **/
-    static void getFoundation() {
-        Foundation.foundationPiles = new ArrayList<>();
-        for(int i = 0, n = 220, c = 1; i < 4; i++, c++) {
-            Foundation.foundationPiles.add(new FoundationPile(n += 130, 25, c));
-            Foundation.foundationPiles.get(i).addCard(new Card(String.valueOf(0), i));
-            gameBoard.getChildren().add(Foundation.foundationPiles.get(i).getRectangle());
+    /** Add piles to pane **/
+    static void getPiles() {
+        Pile.piles = new ArrayList<>();
+        for(int i = 0, a = 1, n = 220; i < 4; i++, num++, a += 13) {
+            Pile.piles.add(new FoundationPile(n += 130, 25, num));
+            Pile.piles.get(i).setIsFoundationPile(true);
+            Pile.piles.get(i).addCard(new Card(String.valueOf(a), i + 1));
+            gameBoard.getChildren().add(Pile.piles.get(i).getRectangle());
+            Pile.piles.get(i).getTopCard().setFill(Color.TRANSPARENT);
         }
-    }
-
-    /** Add tableau piles to the gameBoard **/
-    static void getTableau() {
-        Tableau.tableauPiles = new ArrayList<>();
-        int c = 1; // number identifier for each pile
-
-        // first row
-        for (int t = 0, n = 32; t < 7; t++, c++) { // loops set x location before adding to gameBoard. n = x location
-            Tableau.tableauPiles.add(new TableauPile(n += 130, 210, c)); // creates and adds TableauPile object to Tableau.tableauPiles array
-            gameBoard.getChildren().add(Tableau.tableauPiles.get(t).getRectangle()); // add pile to the gameBoard
+        for (int t = 4, n = 32; t < 11; t++, num++) { // loops set x location before adding to gameBoard. n = x location
+            Pile.piles.add(new TableauPile(n += 130, 210, num)); // creates and adds TableauPile object to Tableau.tableauPiles array
+            gameBoard.getChildren().add(Pile.piles.get(t).getRectangle()); // add pile to the gameBoard
         }
 
         // second row
-        for(int t = 7, n = 97; t <= 12; t++, c++) {
-            Tableau.tableauPiles.add(new TableauPile(n += 130, 500, c));
-            gameBoard.getChildren().add(Tableau.tableauPiles.get(t).getRectangle());
+        for(int t = 11, n = 97; t <= 16; t++, num++) {
+            Pile.piles.add(new TableauPile(n += 130, 500, num));
+            gameBoard.getChildren().add(Pile.piles.get(t).getRectangle());
         }
+
     }
 
     /** Create and deal deck of cards **/
@@ -71,7 +60,7 @@ public class GamePane extends Pane {
 
         // Make array list for random numbers
         ArrayList<Integer> randTab = new ArrayList<>();
-        for(int i = 0; i <= 12; i++)
+        for(int i = 4; i <= 16; i++)
             randTab.add(i);
         Collections.shuffle(randTab); // Shuffle the deck
 
@@ -82,9 +71,10 @@ public class GamePane extends Pane {
         while(!kings) {
             for (int k = 12; k <= 51; k += 13) {
                 int tableauPileNumForKing = randTab.get(tableauRandomPileNum++);
-                Tableau.tableauPiles.get(tableauPileNumForKing).dealCards(Deck.masterDeck.get(k));
+                Pile.piles.get(tableauPileNumForKing).dealCards(Deck.masterDeck.get(k));
                 gameBoard.getChildren().add(Deck.masterDeck.get(k).getCardImage()); // Add card image to gameBoard
                 Deck.masterDeck.get(k).setInTableau(true);
+                Deck.masterDeck.get(k).setAce(true);
             }
             kings = true;
         }
@@ -92,16 +82,16 @@ public class GamePane extends Pane {
         for(int i = 0; i < 51; i++)
             randCard.add(i);
         Collections.shuffle(randCard);
-        for(int t = 0; t < 13; t++) {
-                while (Tableau.tableauPiles.get(t).getPileSize() < 4) {
+        for(int t = 4; t < 17; t++) {
+                while (Pile.piles.get(t).getPileSize() < 4) {
                     if (randCard.get(cardCount) != 12 && randCard.get(cardCount) != 25 && randCard.get(cardCount) != 38 && randCard.get(cardCount) != 51) {
-                        Tableau.tableauPiles.get(t).dealCards(Deck.masterDeck.get(randCard.get(cardCount)));
+                        Pile.piles.get(t).dealCards(Deck.masterDeck.get(randCard.get(cardCount)));
                         gameBoard.getChildren().add(Deck.masterDeck.get(randCard.get(cardCount)).getCardImage()); // Add card image to gameBoard
                         Deck.masterDeck.get(cardCount).setInTableau(true);
                     }
                     cardCount++;
                 }
-                Tableau.tableauPiles.get(t).getTopCard().setIsTopCard(true);
+                Pile.piles.get(t).getTopCard().setIsTopCard(true);
         }
 
     }
@@ -109,19 +99,14 @@ public class GamePane extends Pane {
     /** Restart the game with a new deck **/
     static void newGame() {
         // Set gameStarted to true
-        setGameStarted(true);
-
         gameBoard.getChildren().clear();
-        getFoundation();
-        getTableau();
+        // Clear tableau, foundations, and deck arrays
+        Pile.piles.clear();
+        Deck.masterDeck.clear();
+
+        getPiles();
         getButtons();
 
-        // Clear tableau, foundations, and deck arrays
-        for(int i = 0; i < 13; i++)
-            Tableau.tableauPiles.get(i).clearPile();
-        for(int i = 0; i < 4; i++)
-            Foundation.foundationPiles.get(i).clearPile();
-        Deck.masterDeck.clear();
         // Deal new deck
         Deck.getCards();
         deal();
@@ -155,7 +140,7 @@ public class GamePane extends Pane {
         redo.setStyle("-fx-border-color: #006400; -fx-border-width: 4px;");
         gameBoard.getChildren().add(redo);
 
-        // Restart button
+        /** Restart button
         Button newGame = new Button("New Game");
         newGame.setLayoutX(50);
         newGame.setLayoutY(150);
@@ -166,5 +151,6 @@ public class GamePane extends Pane {
                 GamePane.newGame();
             }
         });
+         **/
     }
 }
