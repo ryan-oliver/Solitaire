@@ -15,6 +15,7 @@ public class Card extends Rectangle {
     private boolean inTableau; // Sets card as in tableau
     private boolean inFoundations; // Sets card as in foundations
     private boolean isTopCard; // Sets card as top card in pile to enable drop on card
+    private boolean isAce;
 
     /** Constructs individual card **/
     Card(String number, int suit) {
@@ -47,6 +48,10 @@ public class Card extends Rectangle {
     /** Check if top card **/
     boolean isTopCard() {
         return isTopCard;
+    }
+
+    void setAce(boolean isAce) {
+        this.isAce = isAce;
     }
 
     /** Check if card can be move to tableau by checking each suit **/
@@ -156,9 +161,10 @@ public class Card extends Rectangle {
     /** Check if card can be added to clubs foundation **/
     private boolean checkFClubs(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
-        if (topCardNum == heldCardNum)
+        if (topCardNum == 0 && getSuit() == Deck.masterDeck.get(heldCardNum - 1).getSuit() &&
+                Deck.masterDeck.get(heldCardNum - 1).isAce)
             return true;
-        else if (topCardNum == heldCardNum - 1 && getSuit() == Deck.masterDeck.get(heldCardNum).getSuit())
+        else if (topCardNum == heldCardNum - 1 && getSuit() == Deck.masterDeck.get(heldCardNum - 1).getSuit())
             return true;
         return false;
     }
@@ -166,9 +172,10 @@ public class Card extends Rectangle {
     /** Check if card can be added to diamond foundation **/
     private boolean checkFDiamond(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
-        if (topCardNum == heldCardNum)
+        if (topCardNum == 0 && getSuit() == Deck.masterDeck.get(heldCardNum - 1).getSuit() &&
+                Deck.masterDeck.get(heldCardNum - 1).isAce)
             return true;
-        else if (topCardNum == heldCardNum - 1 && getSuit() == Deck.masterDeck.get(heldCardNum).getSuit())
+        else if (topCardNum == heldCardNum - 1 && getSuit() == Deck.masterDeck.get(heldCardNum - 1).getSuit())
             return true;
         return false;
     }
@@ -176,9 +183,10 @@ public class Card extends Rectangle {
     /** Check if card can be added to hearts foundation **/
     private boolean checkFHearts(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
-        if (topCardNum == heldCardNum)
+        if (topCardNum == 0 && getSuit() == Deck.masterDeck.get(heldCardNum - 1).getSuit() &&
+                Deck.masterDeck.get(heldCardNum - 1).isAce)
             return true;
-        else if (topCardNum == heldCardNum - 1 && getSuit() == Deck.masterDeck.get(heldCardNum).getSuit())
+        else if (topCardNum == heldCardNum - 1 && getSuit() == Deck.masterDeck.get(heldCardNum - 1).getSuit())
             return true;
         return false;
     }
@@ -186,9 +194,10 @@ public class Card extends Rectangle {
     /** Check if card can be added to spades foundation **/
     private boolean checkFSpades(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
-        if (topCardNum == heldCardNum)
+        if (topCardNum == 0 && getSuit() == Deck.masterDeck.get(heldCardNum - 1).getSuit() &&
+                Deck.masterDeck.get(heldCardNum - 1).isAce)
             return true;
-        else if (topCardNum == heldCardNum - 1 && getSuit() == Deck.masterDeck.get(heldCardNum).getSuit())
+        else if (topCardNum == heldCardNum - 1 && getSuit() == Deck.masterDeck.get(heldCardNum - 1).getSuit())
             return true;
         return false;
     }

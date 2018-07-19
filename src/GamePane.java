@@ -8,7 +8,7 @@ import java.util.Collections;
 // Used to interact with the gameBoard
 
 public class GamePane extends Pane {
-    
+
     static Pane gameBoard;
     private static boolean gameStarted = false; // Boolean to know if game has started
     static int num = 1; // Used to make the piles for the game board. Set pile number when created
@@ -32,11 +32,11 @@ public class GamePane extends Pane {
     /** Add piles to pane **/
     static void getPiles() {
         Pile.piles = new ArrayList<>();
-        for(int i = 0, a = 1, n = 220; i < 4; i++, num++, a += 13) {
+        for(int i = 0, a = 1, n = 220; i < 4; i++, num++, a += 13) { // a = ace card num
             Pile.piles.add(new FoundationPile(n += 130, 25, num));
             Pile.piles.get(i).setIsFoundationPile(true);
             gameBoard.getChildren().add(Pile.piles.get(i).getRectangle());
-            Card card = new Card(String.valueOf(a), i + 1);
+            Card card = new Card(String.valueOf(0), i + 1);
             card.setFill(Color.TRANSPARENT);
             Pile.makeDraggable(card);
             Pile.piles.get(i).addCard(card);
@@ -78,7 +78,6 @@ public class GamePane extends Pane {
                 Pile.piles.get(tableauPileNumForKing).dealCards(Deck.masterDeck.get(k));
                 gameBoard.getChildren().add(Deck.masterDeck.get(k).getCardImage()); // Add card image to gameBoard
                 Deck.masterDeck.get(k).setInTableau(true);
-                Deck.masterDeck.get(k).setAce(true);
             }
             kings = true;
         }
@@ -87,15 +86,15 @@ public class GamePane extends Pane {
             randCard.add(i);
         Collections.shuffle(randCard);
         for(int t = 4; t < 17; t++) {
-                while (Pile.piles.get(t).getPileSize() < 4) {
-                    if (randCard.get(cardCount) != 12 && randCard.get(cardCount) != 25 && randCard.get(cardCount) != 38 && randCard.get(cardCount) != 51) {
-                        Pile.piles.get(t).dealCards(Deck.masterDeck.get(randCard.get(cardCount)));
-                        gameBoard.getChildren().add(Deck.masterDeck.get(randCard.get(cardCount)).getCardImage()); // Add card image to gameBoard
-                        Deck.masterDeck.get(cardCount).setInTableau(true);
-                    }
-                    cardCount++;
+            while (Pile.piles.get(t).getPileSize() < 4) {
+                if (randCard.get(cardCount) != 12 && randCard.get(cardCount) != 25 && randCard.get(cardCount) != 38 && randCard.get(cardCount) != 51) {
+                    Pile.piles.get(t).dealCards(Deck.masterDeck.get(randCard.get(cardCount)));
+                    gameBoard.getChildren().add(Deck.masterDeck.get(randCard.get(cardCount)).getCardImage()); // Add card image to gameBoard
+                    Deck.masterDeck.get(cardCount).setInTableau(true);
                 }
-                Pile.piles.get(t).getTopCard().setIsTopCard(true);
+                cardCount++;
+            }
+            Pile.piles.get(t).getTopCard().setIsTopCard(true);
         }
 
     }
