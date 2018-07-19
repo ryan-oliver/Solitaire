@@ -1,6 +1,8 @@
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +16,8 @@ public class GamePane extends Pane {
     static int num = 1; // Used to make the piles for the game board. Set pile number when created
     static ArrayList<Integer> randCard;
     static ArrayList<Integer> randTab;
+    static int moveCounterI = 0;
+    static Text moveCounterT;
 
     GamePane() {
     }
@@ -29,6 +33,7 @@ public class GamePane extends Pane {
         gameBoard.setStyle("-fx-background-color: #008000");
         getPiles();
         getButtons();
+        getText();
     }
 
     /** Add piles to pane **/
@@ -111,6 +116,8 @@ public class GamePane extends Pane {
 
         getPiles();
         getButtons();
+        getText();
+
 
         // Deal new deck
         deal();
@@ -125,6 +132,7 @@ public class GamePane extends Pane {
 
         getPiles();
         getButtons();
+        getText();
 
         // Deal cards kings first
         int cardCount = 0;
@@ -157,7 +165,7 @@ public class GamePane extends Pane {
         // Start button
         Button start = new Button("Start");
         start.setLayoutX(15);
-        start.setLayoutY(30);
+        start.setLayoutY(80);
         start.setStyle("-fx-border-color: #006400; -fx-border-width: 4px; -fx-font: 12 arial;");
         start.setMinWidth(85);
         gameBoard.getChildren().add(start);
@@ -170,7 +178,7 @@ public class GamePane extends Pane {
         // Undo button
         Button undo = new Button("Undo/Redo");
         undo.setLayoutX(15); // X and Y locations of button
-        undo.setLayoutY(70);
+        undo.setLayoutY(120);
         undo.setStyle("-fx-border-color: #006400; -fx-border-width: 4px; -fx-font: 12 arial;");
         undo.setMinWidth(85);
         gameBoard.getChildren().add(undo);
@@ -185,7 +193,7 @@ public class GamePane extends Pane {
         // New Game button
         Button newGame = new Button("New Game");
         newGame.setLayoutX(15);
-        newGame.setLayoutY(110);
+        newGame.setLayoutY(160);
         newGame.setStyle("-fx-border-color: #006400; -fx-border-width: 4px; -fx-font: 12 arial;");
         newGame.setMinWidth(85);
         gameBoard.getChildren().add(newGame);
@@ -198,7 +206,7 @@ public class GamePane extends Pane {
         // Restart Game button
         Button restartGame = new Button( "Restart");
         restartGame.setLayoutX(15);
-        restartGame.setLayoutY(150);
+        restartGame.setLayoutY(200);
         restartGame.setStyle("-fx-border-color: #006400; -fx-border-width: 4px; -fx-font: 12 arial;");
         restartGame.setMinWidth(85);
         gameBoard.getChildren().add(restartGame);
@@ -207,5 +215,12 @@ public class GamePane extends Pane {
                 GamePane.restartGame();
             }
         });
+    }
+
+    /** Add text fields **/
+    static void getText() {
+        Text topBanner = new Text(150, 55, "BAKERS DOZEN SOLITAIRE");
+        topBanner.setFont(Font.loadFont("file:font/font.TTF", 45));
+        gameBoard.getChildren().add(topBanner);
     }
 }

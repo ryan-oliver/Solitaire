@@ -117,7 +117,6 @@ public class Pile extends Rectangle {
 
         card.setOnDragOver(e -> {
             topCard = Pile.getPile(e.getSceneX(), e.getSceneY()).getTopCard();
-            System.out.println(topCard.getPileNum() + " " + topCard.getNumber() + " " + topCard.getSuit());
             boolean checkF = topCard.foundationMovable(Integer.valueOf(cardInHand.getNumber()));
             if (checkF) {
                 e.acceptTransferModes(TransferMode.MOVE);
@@ -148,7 +147,6 @@ public class Pile extends Rectangle {
                 Pile.piles.get(topCard.getPileNum()).getTopCard().setIsTopCard(true);
                 success = true;
             }
-            System.out.println("Top: "+ topCard.getNumber() + " Bottom: " + cardInHand.getNumber());
             e.setDropCompleted(success);
             e.consume();
         });
