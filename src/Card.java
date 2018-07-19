@@ -9,16 +9,14 @@ public class Card extends Rectangle {
 
     private String number; // number in order from 1 to 52. Used to pull image to card
     private int suit; // Clubs = 1, Diamonds = 2, Hearts = 3, Spades = 4
-    int pileNum;
-    int oldPileNum;
-    private Image cardImage;
-    private boolean inTableau;
-    boolean tableauMovable;
-    boolean foundationsMovable;
-    private boolean inFoundations;
-    private boolean isTopCard;
-    private boolean isAce;
+    private int pileNum; // Current pile number card is in
+    private int oldPileNum; // Last pile number card was in
+    private Image cardImage; // Image of card
+    private boolean inTableau; // Sets card as in tableau
+    private boolean inFoundations; // Sets card as in foundations
+    private boolean isTopCard; // Sets card as top card in pile to enable drop on card
 
+    /** Constructs individual card **/
     Card(String number, int suit) {
         this.number = number;
         this.suit = suit;
@@ -31,6 +29,7 @@ public class Card extends Rectangle {
         setCursor(Cursor.HAND);
     }
 
+    /** Return card image **/
     Image getImage() {
         return cardImage;
     }
@@ -50,12 +49,9 @@ public class Card extends Rectangle {
         return isTopCard;
     }
 
-    void setAce(boolean isAce) {
-        this.isAce = isAce;
-    }
-
     /** Check if card can be move to tableau by checking each suit **/
     boolean tableauMovable(int heldCardNum) {
+        boolean tableauMovable;
         if (checkTClubs(heldCardNum)) {
             tableauMovable =  true;
         }
@@ -141,8 +137,9 @@ public class Card extends Rectangle {
             return false;
     }
 
-    /** (In Progress) Check if card can be added to foundation **/
+    /** Check if card can be added to foundation **/
     boolean foundationMovable(int heldCardNum) {
+        boolean foundationsMovable;
         if (checkFClubs(heldCardNum))
             foundationsMovable = true;
         else if (checkFDiamond(heldCardNum))
@@ -156,6 +153,7 @@ public class Card extends Rectangle {
         return foundationsMovable;
     }
 
+    /** Check if card can be added to clubs foundation **/
     private boolean checkFClubs(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == heldCardNum)
@@ -165,6 +163,7 @@ public class Card extends Rectangle {
         return false;
     }
 
+    /** Check if card can be added to diamond foundation **/
     private boolean checkFDiamond(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == heldCardNum)
@@ -174,6 +173,7 @@ public class Card extends Rectangle {
         return false;
     }
 
+    /** Check if card can be added to hearts foundation **/
     private boolean checkFHearts(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == heldCardNum)
@@ -183,6 +183,7 @@ public class Card extends Rectangle {
         return false;
     }
 
+    /** Check if card can be added to spades foundation **/
     private boolean checkFSpades(int heldCardNum) {
         int topCardNum = Integer.valueOf(getNumber());
         if (topCardNum == heldCardNum)
@@ -202,17 +203,9 @@ public class Card extends Rectangle {
         this.inTableau = inTableau;
     }
 
-    public boolean isInTableau() {
-        return inTableau;
-    }
-
     /** Mark card as in foundations **/
     public void setInFoundations(boolean inFoundations) {
         this.inFoundations = inFoundations;
-    }
-
-    public Boolean isInFoundations() {
-        return inFoundations;
     }
 
     /** Set tableau that card is in **/
@@ -220,19 +213,22 @@ public class Card extends Rectangle {
         this.pileNum = pileNum;
     }
 
+    /** Set cards previous pile number **/
     void setOldPileNum(int oldPileNum) {
         this.oldPileNum = oldPileNum;
     }
 
+    /** Get cards previous pile **/
     int getOldPileNum() {
         return oldPileNum;
     }
 
+    /** Get pile number of current card **/
     int getPileNum() {
         return pileNum;
     }
 
-    /** Return image of card**/
+    /** Return card rectangle **/
     Rectangle getCardImage() {
         return this;
     }

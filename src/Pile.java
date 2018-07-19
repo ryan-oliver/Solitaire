@@ -8,19 +8,20 @@ import java.util.ArrayList;
 
 public class Pile extends Rectangle {
 
-    ArrayList<Card> cardsInPile;
-    static ArrayList<Pile> piles;
+    ArrayList<Card> cardsInPile; // Array of cards in this pile
+    static ArrayList<Pile> piles; // Array of the piles including both Foundation and Tableau
 
-    int num;
-    static Dragboard db;
-    static Card topCard;
-    static Card cardInHand;
-    static Pile selectedPile;
-    boolean isFoundationPile;
+    int num; // pile number in game board
+    static Dragboard db; // Used to drag card data
+    static Card topCard; // Represents top card of pile mouse is currently over
+    static Card cardInHand; // Represents card that is being dragged
+    static Pile selectedPile; // Represents pile that mouse is currently over
+    boolean isFoundationPile; // Identifies foundation piles
 
     Pile(){
     }
 
+    /** Constructs a piles object **/
     Pile(double xCord, double yCord, int num) {
         cardsInPile = new ArrayList<>();
         this.num = num;
@@ -33,25 +34,22 @@ public class Pile extends Rectangle {
 
     }
 
+    /** Sets pile as foundation pile **/
     void setIsFoundationPile(boolean isFoundationPile) {
         this.isFoundationPile = isFoundationPile;
     }
 
-    /** Return physical rectangle of pile**/
+    /** Return physical representation of pile **/
     Rectangle getRectangle() {
         return this;
     }
 
-    int getNum() {
-        return num;
-    }
-
     /** Return top card in pile **/
     Card getTopCard() {
-        return cardsInPile.get(cardsInPile.size() -1);
+        return cardsInPile.get(cardsInPile.size() - 1);
     }
 
-    /** Get amount of cards in pile**/
+    /** Get amount of cards in pile **/
     public int getPileSize() {
         return cardsInPile.size();
     }
@@ -69,11 +67,6 @@ public class Pile extends Rectangle {
     public void removeCard(Card card) {
         cardsInPile.remove(card);
         GamePane.gameBoard.getChildren().remove(card);
-    }
-
-    /** Clear pile for restart **/
-    void clearPile() {
-        cardsInPile.clear();
     }
 
     /** Deal cards to  tableau **/

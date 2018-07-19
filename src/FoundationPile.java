@@ -7,14 +7,14 @@ class FoundationPile extends Pile {
 
     private int suit; // Number to represent foundation suit
 
-    /** Creates a location for a foundation pile**/
+    /** Construct a Foundation pile with dark green border and suit image **/
     FoundationPile(double xCord, double yCord, int num) {
         super(xCord, yCord, num);
         this.suit = num;
         setFill(new ImagePattern(new Image("file:images/suit_image/" + num + "s.png"))); // Adds image representing suit
     }
 
-    /** Add card to pile **/
+    /** Add card to this pile **/
     void addCard(Card card) {
         Deck.lastMoved = card;
         cardsInPile.add(card);

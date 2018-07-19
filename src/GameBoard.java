@@ -2,7 +2,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-// Main class. Game runs from here. Represents physical game board.
+// Main class. Game runs from here. Represents the game.
 
 public class GameBoard extends Application {
 

@@ -1,17 +1,17 @@
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
-// Represents each individual pile in tableau
+// Represents each individual pile in the tableau
 
 public class TableauPile extends Pile {
 
+    /** Construct Tableau pile with green background and dark green border **/
     TableauPile(double xCord, double yCord, int num) {
         super(xCord, yCord, num);
         setFill(Color.GREEN);
         setStroke(Color.DARKGREEN);
     }
 
-    /** Add card to tableau pile **/
+    /** Add card to this pile **/
     void addCard(Card card) {
         Deck.lastMoved = card;
         cardsInPile.add(card);

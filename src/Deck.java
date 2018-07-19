@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Deck {
 
-    static ArrayList<Card> masterDeck;
-    static Card lastMoved;
+    static ArrayList<Card> masterDeck; // Deck of cards
+    static Card lastMoved; // Used to track last moved card for undo/redo button
 
     Deck() {
     }

@@ -11,15 +11,17 @@ public class GamePane extends Pane {
     
     static Pane gameBoard;
     private static boolean gameStarted = false; // Boolean to know if game has started
-    static int num = 1;
+    static int num = 1; // Used to make the piles for the game board. Set pile number when created
 
     GamePane() {
     }
 
+    /** Set game as started so buttons can be enabled/disabled**/
     static void setGameStarted(boolean status) {
         gameStarted = status;
     }
 
+    /** Begin game **/
     static void begin() {
         gameBoard = new Pane();
         gameBoard.setStyle("-fx-background-color: #008000");
@@ -100,7 +102,6 @@ public class GamePane extends Pane {
 
     /** Restart the game with a new deck **/
     static void newGame() {
-        // Set gameStarted to true
         gameBoard.getChildren().clear();
         // Clear tableau, foundations, and deck arrays
         Pile.piles.clear();
