@@ -117,7 +117,7 @@ public class GamePane extends Pane {
         getPiles();
         getButtons();
         getText();
-
+        getTimer();
 
         // Deal new deck
         deal();
@@ -133,6 +133,7 @@ public class GamePane extends Pane {
         getPiles();
         getButtons();
         getText();
+        getTimer();
 
         // Deal cards kings first
         int cardCount = 0;
@@ -166,12 +167,13 @@ public class GamePane extends Pane {
         Button start = new Button("Start");
         start.setLayoutX(15);
         start.setLayoutY(80);
-        start.setStyle("-fx-border-color: #006400; -fx-border-width: 4px; -fx-font: 12 arial;");
+        start.setStyle("-fx-border-color: #BDB76B; -fx-border-width: 4px; -fx-font: 12 arial;");
         start.setMinWidth(85);
         gameBoard.getChildren().add(start);
         start.setOnAction((e) -> {
             if (!gameStarted) { // Prevents start button use after game start
                 GamePane.deal();
+                getTimer();
             }
         });
 
@@ -179,7 +181,7 @@ public class GamePane extends Pane {
         Button undo = new Button("Undo/Redo");
         undo.setLayoutX(15); // X and Y locations of button
         undo.setLayoutY(120);
-        undo.setStyle("-fx-border-color: #006400; -fx-border-width: 4px; -fx-font: 12 arial;");
+        undo.setStyle("-fx-border-color: #BDB76B; -fx-border-width: 4px; -fx-font: 12 arial;");
         undo.setMinWidth(85);
         gameBoard.getChildren().add(undo);
         undo.setOnAction(e -> {
@@ -194,7 +196,7 @@ public class GamePane extends Pane {
         Button newGame = new Button("New Game");
         newGame.setLayoutX(15);
         newGame.setLayoutY(160);
-        newGame.setStyle("-fx-border-color: #006400; -fx-border-width: 4px; -fx-font: 12 arial;");
+        newGame.setStyle("-fx-border-color: #BDB76B; -fx-border-width: 4px; -fx-font: 12 arial;");
         newGame.setMinWidth(85);
         gameBoard.getChildren().add(newGame);
         newGame.setOnAction((e) -> {
@@ -207,7 +209,7 @@ public class GamePane extends Pane {
         Button restartGame = new Button( "Restart");
         restartGame.setLayoutX(15);
         restartGame.setLayoutY(200);
-        restartGame.setStyle("-fx-border-color: #006400; -fx-border-width: 4px; -fx-font: 12 arial;");
+        restartGame.setStyle("-fx-border-color: #BDB76B; -fx-border-width: 4px; -fx-font: 12 arial;");
         restartGame.setMinWidth(85);
         gameBoard.getChildren().add(restartGame);
         restartGame.setOnAction((e) -> {
@@ -219,8 +221,18 @@ public class GamePane extends Pane {
 
     /** Add text fields **/
     static void getText() {
-        Text topBanner = new Text(150, 55, "BAKERS DOZEN SOLITAIRE");
+        Text topBanner = new Text(315, 55, "BAKERS DOZEN SOLITAIRE");
         topBanner.setFont(Font.loadFont("file:font/font.TTF", 45));
+        topBanner.setStyle("-fx-fill: #BDB76B;");
         gameBoard.getChildren().add(topBanner);
+    }
+
+    static void getTimer() {
+        Timer timer = new Timer();
+        timer.text.setX(1070);
+        timer.text.setY(30);
+        gameBoard.getChildren().add(timer.text);
+        timer.play();
+        gameBoard.requestFocus();
     }
 }

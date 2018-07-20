@@ -29,7 +29,7 @@ public class Pile extends Rectangle {
         setHeight(155);
         setX(xCord);
         setY(yCord);
-        setStroke(Color.DARKGREEN);
+        setStroke(Color.rgb(107, 73, 14));
         setStrokeWidth(5);
 
     }
