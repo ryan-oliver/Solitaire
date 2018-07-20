@@ -2,9 +2,9 @@ import javafx.scene.paint.Color;
 
 // Represents each individual pile in the tableau
 
-public class TableauPile extends Pile {
+class TableauPile extends Pile {
 
-    int pileCt = -1;
+    private int pileCt = -1;
 
     /** Construct Tableau pile with green background and dark green border **/
     TableauPile(double xCord, double yCord, int num) {

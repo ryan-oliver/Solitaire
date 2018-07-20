@@ -203,7 +203,7 @@ public class Card extends Rectangle {
     }
 
     /** Return card suit **/
-    public int getSuit() {
+    private int getSuit() {
         return this.suit;
     }
 
@@ -213,7 +213,7 @@ public class Card extends Rectangle {
     }
 
     /** Mark card as in foundations **/
-    public void setInFoundations(boolean inFoundations) {
+    void setInFoundations(boolean inFoundations) {
         this.inFoundations = inFoundations;
     }
 

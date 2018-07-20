@@ -7,11 +7,11 @@ import javafx.util.Duration;
 public class Timer {
 
     // Data Fields
-    int hour;
-    int minute;
-    int second;
+    private int hour;
+    private int minute;
+    private int second;
     Text text = new Text();
-    Timeline animation;
+    private Timeline animation;
 
     // Construct stopwatch
     Timer() {

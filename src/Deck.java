@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 // Represents each deck of cards.
 
-public class Deck {
+class Deck {
 
     static ArrayList<Card> masterDeck; // Deck of cards
     static Card lastMoved; // Used to track last moved card for undo/redo button

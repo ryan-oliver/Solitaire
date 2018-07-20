@@ -12,11 +12,10 @@ public class Pile extends Rectangle {
     static ArrayList<Pile> piles; // Array of the piles including both Foundation and Tableau
 
     int num; // pile number in game board
-    static Dragboard db; // Used to drag card data
-    static Card topCard; // Represents top card of pile mouse is currently over
-    static Card cardInHand; // Represents card that is being dragged
-    static Pile selectedPile; // Represents pile that mouse is currently over
-    boolean isFoundationPile; // Identifies foundation piles
+    private static Dragboard db; // Used to drag card data
+    private static Card topCard; // Represents top card of pile mouse is currently over
+    private static Card cardInHand; // Represents card that is being dragged
+    private static Pile selectedPile; // Represents pile that mouse is currently over
 
     Pile(){
     }
@@ -34,11 +33,6 @@ public class Pile extends Rectangle {
 
     }
 
-    /** Sets pile as foundation pile **/
-    void setIsFoundationPile(boolean isFoundationPile) {
-        this.isFoundationPile = isFoundationPile;
-    }
-
     /** Return physical representation of pile **/
     Rectangle getRectangle() {
         return this;
@@ -53,7 +47,7 @@ public class Pile extends Rectangle {
     }
 
     /** Get amount of cards in pile **/
-    public int getPileSize() {
+    int getPileSize() {
         return cardsInPile.size();
     }
 
@@ -67,13 +61,13 @@ public class Pile extends Rectangle {
     }
 
     /** Remove card from pile **/
-    public void removeCard(Card card) {
+    void removeCard(Card card) {
         cardsInPile.remove(card);
         GamePane.gameBoard.getChildren().remove(card);
     }
 
     /** Deal cards to  tableau **/
-    public void dealCards(Card card) {
+    void dealCards(Card card) {
         cardsInPile.add(card);
         card.setPileNum(num - 1);
         // Increment location of card to make whole stack visible
@@ -88,7 +82,7 @@ public class Pile extends Rectangle {
         }
     }
 
-    static Pile getPile(double xCord, double yCord) {
+    private static Pile getPile(double xCord, double yCord) {
         for(int i = 0; i < 17; i++) {
             if (Pile.piles.get(i).getTopCard().contains(xCord, yCord))
                 selectedPile = Pile.piles.get(i);

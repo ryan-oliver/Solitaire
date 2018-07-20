@@ -13,15 +13,15 @@ public class GamePane extends Pane {
 
     static Pane gameBoard;
     private static boolean gameStarted = false; // Boolean to know if game has started
-    static int num = 1; // Used to make the piles for the game board. Set pile number when created
-    static ArrayList<Integer> randCard;
-    static ArrayList<Integer> randTab;
+    private static int num = 1; // Used to make the piles for the game board. Set pile number when created
+    private static ArrayList<Integer> randCard;
+    private static ArrayList<Integer> randTab;
 
     GamePane() {
     }
 
     /** Set game as started so buttons can be enabled/disabled**/
-    static void setGameStarted(boolean status) {
+    private static void setGameStarted(boolean status) {
         gameStarted = status;
     }
 
@@ -35,11 +35,10 @@ public class GamePane extends Pane {
     }
 
     /** Add piles to pane **/
-    static void getPiles() {
+    private static void getPiles() {
         Pile.piles = new ArrayList<>();
         for(int i = 0, a = 1, n = -115; i < 4; i++, num++, a += 13) { // a = ace card num
             Pile.piles.add(new FoundationPile(1050, n += 175, num));
-            Pile.piles.get(i).setIsFoundationPile(true);
             gameBoard.getChildren().add(Pile.piles.get(i).getRectangle());
             Card card = new Card(String.valueOf(0), i + 1); // Invisible cards that allow ace to transfer to foundations
             card.setFill(Color.TRANSPARENT);
@@ -60,7 +59,7 @@ public class GamePane extends Pane {
     }
 
     /** Create and deal deck of cards **/
-    static void deal() {
+    private static void deal() {
         // Set gameStarted to true
         setGameStarted(true);
 
@@ -105,7 +104,7 @@ public class GamePane extends Pane {
     }
 
     /** Restart the game with a new deck **/
-    static void newGame() {
+    private static void newGame() {
         gameBoard.getChildren().clear();
         // Clear tableau, foundations, and deck arrays
         Pile.piles.clear();
@@ -121,7 +120,7 @@ public class GamePane extends Pane {
         deal();
     }
 
-    static void restartGame() {
+    private static void restartGame() {
         gameBoard.getChildren().clear();
         // Clear tableau, foundations, and deck arrays
         Pile.piles.clear();
@@ -160,7 +159,7 @@ public class GamePane extends Pane {
     }
 
     /** Add buttons **/
-    static void getButtons() {
+    private static void getButtons() {
         // Start button
         Button start = new Button("Start");
         start.setLayoutX(15);
@@ -218,14 +217,14 @@ public class GamePane extends Pane {
     }
 
     /** Add text fields **/
-    static void getText() {
+    private static void getText() {
         Text topBanner = new Text(315, 55, "BAKERS DOZEN SOLITAIRE");
         topBanner.setFont(Font.loadFont("file:font/font.TTF", 45));
         topBanner.setStyle("-fx-fill: #BDB76B;");
         gameBoard.getChildren().add(topBanner);
     }
 
-    static void getTimer() {
+    private static void getTimer() {
         Timer timer = new Timer();
         gameBoard.getChildren().add(timer.text);
         timer.play();
