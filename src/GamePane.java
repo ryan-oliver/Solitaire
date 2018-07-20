@@ -1,3 +1,4 @@
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -9,7 +10,7 @@ import java.util.Collections;
 
 // Used to interact with the gameBoard
 
-public class GamePane extends Pane {
+class GamePane extends Pane {
 
     static Pane gameBoard;
     private static boolean gameStarted = false; // Boolean to know if game has started
@@ -192,7 +193,7 @@ public class GamePane extends Pane {
         // New Game button
         Button newGame = new Button("New Game");
         newGame.setLayoutX(15);
-        newGame.setLayoutY(160);
+        newGame.setLayoutY(200);
         newGame.setStyle("-fx-border-color: #BDB76B; -fx-border-width: 4px; -fx-font: 12 arial;");
         newGame.setMinWidth(85);
         gameBoard.getChildren().add(newGame);
@@ -205,7 +206,7 @@ public class GamePane extends Pane {
         // Restart Game button
         Button restartGame = new Button( "Restart");
         restartGame.setLayoutX(15);
-        restartGame.setLayoutY(200);
+        restartGame.setLayoutY(160);
         restartGame.setStyle("-fx-border-color: #BDB76B; -fx-border-width: 4px; -fx-font: 12 arial;");
         restartGame.setMinWidth(85);
         gameBoard.getChildren().add(restartGame);
@@ -214,16 +215,43 @@ public class GamePane extends Pane {
                 GamePane.restartGame();
             }
         });
+
+        Button help = new Button("Help");
+        help.setLayoutX(15);
+        help.setLayoutY(750);
+        help.setStyle("-fx-border-color: #BDB76B; -fx-border-width: 4px; -fx-font: 12 arial;");
+        help.setMinWidth(85);
+        gameBoard.getChildren().add(help);
+        help.setOnAction(e -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Game Information");
+            alert.setHeaderText("Thanks for playing Baker's Dozen Solitaire!");
+            alert.setContentText("Rules:\n" +
+                    "   Cards can only be moved one at a time\n" +
+                    "   Tableau piles are built in descending order, regardless of suit (King to Ace)\n" +
+                    "   Foundation piles are built in ascending order by rank (Ace to King)\n" +
+                    "   The top card of a Foundations pile can be moved back into the Tableau\n" +
+                    "   Cards cannot move to an empty Tableau pile\n\n" +
+                    "Buttons:\n" +
+                    "   Start: Start game\n" +
+                    "   Undo/Redo: Undo and redo the last move\n" +
+                    "   Restart: Restart the current game\n" +
+                    "   New Game: Deals a new deck of cards\n");
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefWidth(500);
+            alert.showAndWait();
+        });
     }
 
     /** Add text fields **/
     private static void getText() {
-        Text topBanner = new Text(315, 55, "BAKERS DOZEN SOLITAIRE");
+        Text topBanner = new Text(315, 55, "BAKER'S DOZEN SOLITAIRE");
         topBanner.setFont(Font.loadFont("file:font/font.TTF", 45));
         topBanner.setStyle("-fx-fill: #BDB76B;");
         gameBoard.getChildren().add(topBanner);
     }
 
+    /** Add timer to game board **/
     private static void getTimer() {
         Timer timer = new Timer();
         gameBoard.getChildren().add(timer.text);
