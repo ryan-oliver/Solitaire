@@ -14,9 +14,11 @@ public class Timer {
     Timeline animation;
 
     // Construct stopwatch
-    public Timer() {
+    Timer() {
         text.setFont(Font.font(15));
         text.setStyle("-fx-fill: #BDB76B;");
+        text.setX(1070);
+        text.setY(30);
         animation = new Timeline(
                 new KeyFrame(Duration.millis(1000), e -> run()));
         animation.setCycleCount(Timeline.INDEFINITE);
@@ -28,7 +30,7 @@ public class Timer {
     }
 
     // Animate stopwatch
-    protected void run() {
+    private void run() {
         if (minute == 59)
             hour = hour + 1;
         if (second == 59)

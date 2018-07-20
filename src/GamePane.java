@@ -16,8 +16,6 @@ public class GamePane extends Pane {
     static int num = 1; // Used to make the piles for the game board. Set pile number when created
     static ArrayList<Integer> randCard;
     static ArrayList<Integer> randTab;
-    static int moveCounterI = 0;
-    static Text moveCounterT;
 
     GamePane() {
     }
@@ -229,8 +227,6 @@ public class GamePane extends Pane {
 
     static void getTimer() {
         Timer timer = new Timer();
-        timer.text.setX(1070);
-        timer.text.setY(30);
         gameBoard.getChildren().add(timer.text);
         timer.play();
         gameBoard.requestFocus();
