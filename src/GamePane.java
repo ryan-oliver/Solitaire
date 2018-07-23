@@ -43,6 +43,7 @@ class GamePane extends Pane {
             gameBoard.getChildren().add(Pile.piles.get(i).getRectangle());
             Card card = new Card(String.valueOf(0), i + 1); // Invisible cards that allow ace to transfer to foundations
             card.setFill(Color.TRANSPARENT);
+            card.setInFoundations(true);
             Pile.makeDraggable(card);
             Pile.piles.get(i).addCard(card);
         }

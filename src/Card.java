@@ -57,18 +57,14 @@ public class Card extends Rectangle {
     /** Check if card can be move to tableau by checking each suit **/
     boolean tableauMovable(int heldCardNum) {
         boolean tableauMovable;
-        if (checkTClubs(heldCardNum)) {
+        if (checkTClubs(heldCardNum) && inTableau)
             tableauMovable =  true;
-        }
-        else if (checkTDiamond(heldCardNum)) {
+        else if (checkTDiamond(heldCardNum) && inTableau)
             tableauMovable =  true;
-        }
-        else if (checkTHearts(heldCardNum)) {
+        else if (checkTHearts(heldCardNum) && inTableau)
             tableauMovable =  true;
-        }
-        else if (checkTSpades(heldCardNum)) {
+        else if (checkTSpades(heldCardNum) && inTableau)
             tableauMovable =  true;
-        }
         else
             tableauMovable =  false;
         return tableauMovable;
@@ -145,13 +141,13 @@ public class Card extends Rectangle {
     /** Check if card can be added to foundation **/
     boolean foundationMovable(int heldCardNum) {
         boolean foundationsMovable;
-        if (checkFClubs(heldCardNum))
+        if (checkFClubs(heldCardNum) && inFoundations)
             foundationsMovable = true;
-        else if (checkFDiamond(heldCardNum))
+        else if (checkFDiamond(heldCardNum) && inFoundations)
             foundationsMovable = true;
-        else if (checkFHearts(heldCardNum))
+        else if (checkFHearts(heldCardNum) && inFoundations)
             foundationsMovable = true;
-        else if (checkFSpades(heldCardNum))
+        else if (checkFSpades(heldCardNum) && inFoundations)
             foundationsMovable = true;
         else
             foundationsMovable = false;

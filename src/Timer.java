@@ -41,7 +41,7 @@ public class Timer {
 
     // Return time as a string
     private String getTime() {
-        return pad(hour) + ":" + pad(minute) + ":" + pad(second);
+        return pad(minute) + ":" + pad(second);
     }
 
     // Return padded string
